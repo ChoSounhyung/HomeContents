@@ -1,4 +1,4 @@
-package com.sacol.myapplication;
+package com.sacol.homecontents;
 
 import androidx.appcompat.app.AppCompatActivity;
 
