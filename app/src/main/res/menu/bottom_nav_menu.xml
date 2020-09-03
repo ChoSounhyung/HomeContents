@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/home"
+        android:title="home"
+        android:icon="@drawable/home_icon"/>
+    <item
+        android:id="@+id/hashtag"
+        android:title="tag"
+        android:icon="@drawable/hashtag_icon"/>
+    <item
+        android:id="@+id/plus"
+        android:title="plus"
+        android:icon="@drawable/plus_icon"/>
+    <item
+        android:id="@+id/storage"
+        android:title="storage"
+        android:icon="@drawable/storage_icon"/>
+    <item
+        android:id="@+id/mypage"
+        android:title="my"
+        android:icon="@drawable/person_icon"/>
 </menu>
