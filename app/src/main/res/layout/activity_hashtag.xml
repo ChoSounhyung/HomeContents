@@ -20,6 +20,7 @@
             android:src="@drawable/search_rect"/>
 
         <EditText
+            android:id="@+id/search_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -28,6 +29,7 @@
             android:hint="해시태그를 입력하세요." />
 
         <ImageView
+            android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
