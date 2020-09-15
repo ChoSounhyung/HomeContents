@@ -16,6 +16,10 @@ public class PlusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus);
 
+        setBottomNav();
+    }
+
+    private void setBottomNav() {
         //Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 

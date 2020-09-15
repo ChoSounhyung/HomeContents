@@ -16,6 +16,10 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
 
+        setBottomNav();
+    }
+
+    private void setBottomNav() {
         //Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
