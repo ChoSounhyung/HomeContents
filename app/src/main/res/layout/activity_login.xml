@@ -51,6 +51,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
+                android:id="@+id/login_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="아이디를 입력하세요"
@@ -79,6 +80,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
+                android:id="@+id/login_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호를 입력하세요"
@@ -94,6 +96,7 @@
             android:layout_marginLeft="80dp"/>
 
         <Button
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_nav_rect"
@@ -123,6 +126,7 @@
                 android:layout_marginRight="16dp"/>
 
             <TextView
+                android:id="@+id/login_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="가입하기"
