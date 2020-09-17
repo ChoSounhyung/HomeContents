@@ -66,13 +66,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="아이디 : "/>
+                android:text="이메일 : "/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:hint="아이디를 입력하세요"
+                android:hint="이메일을 입력하세요"
                 android:background="@null"/>
 
         </LinearLayout>
@@ -115,27 +115,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:hint="비밀번호를 입력하세요"
-                android:background="@null"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="이메일 : "/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:hint="이메일을 입력하세요"
                 android:background="@null"/>
 
         </LinearLayout>
