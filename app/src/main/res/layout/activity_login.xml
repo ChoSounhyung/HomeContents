@@ -46,15 +46,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="아이디  :  "
+                android:text="이메일  :  "
                 android:textSize="21sp"
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/login_id"
+                android:id="@+id/login_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="아이디를 입력하세요"
+                android:hint="이메일을 입력하세요"
                 android:background="@null"/>
 
         </LinearLayout>
