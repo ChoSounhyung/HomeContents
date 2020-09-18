@@ -4,134 +4,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:src="@drawable/bottom_nav_rect"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_centerVertical="true"
-            android:text="LOGIN"
-            android:textColor="@color/white"
-            android:textSize="23sp"/>
-
-    </RelativeLayout>
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="50dp">
+
+        <ImageView
+            android:id="@+id/login_back"
+            android:layout_width="40dp"
+            android:layout_height="18dp"
+            android:src="@drawable/back_icon"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LOGIN"
+            android:textSize="23sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이메일  :  "
-                android:textSize="21sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="21sp" />
 
             <EditText
                 android:id="@+id/login_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="이메일을 입력하세요"
-                android:background="@null"/>
+                android:background="@null"
+                android:hint="이메일을 입력하세요" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/dark_grey"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="40dp"
-            android:layout_marginLeft="80dp"/>
+            android:background="@color/dark_grey" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="비밀번호  :  "
-                android:textSize="21sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="21sp" />
 
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="비밀번호를 입력하세요"
-                android:background="@null"/>
+                android:background="@null"
+                android:hint="비밀번호를 입력하세요" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/dark_grey"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="80dp"/>
+            android:background="@color/dark_grey" />
 
         <Button
             android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:background="@drawable/bottom_nav_rect"
             android:backgroundTint="@color/dark_grey"
             android:text="LOGIN"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_marginTop="40dp"/>
+            android:textSize="20dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/dark_grey"
             android:layout_marginTop="150dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            android:background="@color/dark_grey" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="계정이 없으신가요?"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:text="계정이 없으신가요?" />
 
             <TextView
                 android:id="@+id/login_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가입하기"
                 android:layout_marginLeft="15dp"
-                android:textColor="#405FF2"/>
+                android:text="가입하기"
+                android:textColor="#405FF2" />
 
         </LinearLayout>
 
