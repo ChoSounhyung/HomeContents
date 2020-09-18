@@ -1,16 +1,16 @@
 package com.sacol.homecontents;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
+    private ImageView backBtn;
     private Button loginBtn;
     private TextView signupBtn;
 
@@ -21,16 +21,20 @@ public class LoginActivity extends AppCompatActivity {
 
         init();
         setUp();
+
     }
 
     private void init() {
+        backBtn = findViewById(R.id.login_back);
         loginBtn = findViewById(R.id.login_btn);
         signupBtn = findViewById(R.id.login_signup);
     }
 
     private void setUp() {
+        backBtn.setOnClickListener(goMainPage);
         loginBtn.setOnClickListener(goMainPage);
         signupBtn.setOnClickListener(goSignupPage);
+
     }
 
     View.OnClickListener goMainPage = new View.OnClickListener() {
