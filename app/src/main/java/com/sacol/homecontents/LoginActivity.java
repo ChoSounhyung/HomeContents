@@ -3,6 +3,7 @@ package com.sacol.homecontents;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setUp() {
-        backBtn.setOnClickListener(goMainPage);
+        backBtn.setOnClickListener(goBackPage);
         loginBtn.setOnClickListener(goMainPage);
         signupBtn.setOnClickListener(goSignupPage);
 
@@ -50,6 +51,13 @@ public class LoginActivity extends AppCompatActivity {
         public void onClick(View view) {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
+        }
+    };
+
+    View.OnClickListener goBackPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            LoginActivity.this.finish();
         }
     };
 }
