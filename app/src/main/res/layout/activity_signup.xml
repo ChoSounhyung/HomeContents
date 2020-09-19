@@ -7,128 +7,140 @@
     tools:context=".SignupActivity"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/bottom_nav_rect"
-        android:backgroundTint="@color/orange">
+        android:layout_marginRight="50dp">
+
+        <ImageView
+            android:id="@+id/signup_back"
+            android:layout_width="40dp"
+            android:layout_height="18dp"
+            android:src="@drawable/back_icon"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_centerVertical="true"
+            android:gravity="center"
             android:text="SIGN UP"
-            android:textColor="@color/white"
-            android:textSize="23sp"/>
+            android:textSize="23sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:hint="이름을 입력하세요"
+            android:background="@null"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="이름 : "/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_grey"
+            android:layout_marginBottom="30dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:hint="이름을 입력하세요"
-                android:background="@null"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:hint="이메일을 입력하세요"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:background="@null"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="이메일 : "/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_grey"
+            android:layout_marginBottom="30dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:hint="이메일을 입력하세요"
-                android:background="@null"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:hint="비밀번호를 입력하세요"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:background="@null"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="비밀번호 : "/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_grey"
+            android:layout_marginBottom="30dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:hint="비밀번호를 입력하세요"
-                android:background="@null"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:hint="비밀번호를 입력하세요(중복확인)"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:background="@null"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="비밀번호 중복확인 : "/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_grey"
+            android:layout_marginBottom="30dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:hint="비밀번호를 입력하세요"
-                android:background="@null"/>
-
-        </LinearLayout>
+    </LinearLayout>
 
         <Button
             android:id="@+id/signup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_nav_rect"
-            android:backgroundTint="@color/dark_grey"
             android:text="SIGN UP"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginRight="120dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/dark_grey" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:text="계정이 있으신가요?" />
+
+        <TextView
+            android:id="@+id/signup_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="로그인하기"
+            android:textColor="#405FF2" />
 
     </LinearLayout>
 
