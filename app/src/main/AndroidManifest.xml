@@ -10,19 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MypageActivity" />
-        <activity android:name=".StorageActivity" />
-        <activity android:name=".PlusActivity" />
-        <activity android:name=".HashtagActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MypageActivity" />
+        <activity android:name=".StorageActivity" />
+        <activity android:name=".PlusActivity" />
+        <activity android:name=".HashtagActivity" />
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
