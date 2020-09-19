@@ -6,7 +6,8 @@
     <color name="main">#7E75EC</color>
     <color name="white">#FFFFFF</color>
     <color name="light_grey">#F2F2F2</color>
-    <color name="dark_grey">#DDDDDD</color>
+    <color name="midium_grey">#D1D0D0</color>
+    <color name="dark_grey">#8E8D8D</color>
     <color name="black">#000000</color>
     <color name="light_purple">#D6D3FF</color>
     <color name="midium_purple">#C0BBFF</color>
