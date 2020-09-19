@@ -26,13 +26,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        login = findViewById(R.id.go_login);
-        signup = findViewById(R.id.go_signup);
     }
 
     private void setUp() {
-        login.setOnClickListener(goLoginPage);
-        signup.setOnClickListener(goSignupPage);
     }
 
     private void setBottomNav() {
@@ -70,20 +66,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    View.OnClickListener goLoginPage = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-    };
-
-    View.OnClickListener goSignupPage = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-            startActivity(intent);
-        }
-    };
 }
