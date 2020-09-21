@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,14 +68,15 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                 } else {
-//                                    로그인 실패
+                                    Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다..", Toast.LENGTH_LONG).show();
                                 }
 
                                 // ...
                             }
                         });
             }else{
-//                둘중에 하나 비워있음 ㅎㅎ
+                Toast.makeText(getApplicationContext(), "모두 입력해주세요", Toast.LENGTH_LONG).show();
+
             }
 //
         }
