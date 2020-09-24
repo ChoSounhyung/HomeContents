@@ -23,71 +23,82 @@
         android:layout_marginLeft="23dp"
         android:layout_marginRight="23dp">
 
-        <EditText
-            android:id="@+id/signUp_name"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@null"
-            android:hint="이름을 입력하세요"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            app:boxBackgroundColor="#FFFFFF">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/dark_grey"
-            android:layout_marginBottom="30dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUp_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="이름을 입력하세요"
+                android:shadowColor="#FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/signUp_email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@null"
-            android:ems="10"
-            android:hint="이메일을 입력하세요"
-            android:inputType="textEmailAddress"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            app:boxBackgroundColor="#FFFFFF">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/dark_grey"
-            android:layout_marginBottom="30dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUp_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="이메일을 입력하세요"
+                android:inputType="textEmailAddress"
+                android:shadowColor="#FFFFFF" />
 
-        <EditText
-            android:id="@+id/signUp_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@null"
-            android:ems="10"
-            android:hint="비밀번호를 입력하세요"
-            android:inputType="textPassword"
-            android:textSize="18sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/dark_grey"
-            android:layout_marginBottom="30dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/signUp_pwdConfirm"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@null"
-            android:ems="10"
-            android:hint="비밀번호를 입력하세요(중복확인)"
-            android:inputType="textPassword"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            app:boxBackgroundColor="#FFFFFF">
 
-        <View
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUp_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="비밀번호를 입력하세요"
+                android:inputType="textPassword"
+                android:shadowColor="#FFFFFF" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/dark_grey"
-            android:layout_marginBottom="30dp"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            app:boxBackgroundColor="#FFFFFF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUp_pwdConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="비밀번호를 입력하세요(중복확인)"
+                android:inputType="textPassword"
+                android:shadowColor="#FFFFFF" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
