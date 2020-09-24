@@ -63,19 +63,23 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-
+                                    Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_LONG).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
+                                    startMainActivity();
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다..", Toast.LENGTH_LONG).show();
+                                    if(task.getException() != null){
+                                        Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
+
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다..", Toast.LENGTH_LONG).show();
+                                    }
                                 }
 
                                 // ...
                             }
                         });
             }else{
-                Toast.makeText(getApplicationContext(), "모두 입력해주세요", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "이메일 또는 비밀번호를 입력해주세요", Toast.LENGTH_LONG).show();
 
             }
 //
@@ -90,4 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
+    private void startMainActivity(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
