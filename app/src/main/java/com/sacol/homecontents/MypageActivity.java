@@ -6,18 +6,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MypageActivity extends AppCompatActivity {
+    private ImageView mypage_setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
-
         setBottomNav();
+        init();
+        setUp();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void init() {
+        mypage_setting = findViewById(R.id.mypage_setting);
+    }
+
+    private void setUp() {
+        mypage_setting.setOnClickListener(goSettingPage);
+    }
+
+    View.OnClickListener goSettingPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startSettingActivity();
+        }
+    };
 
     private void setBottomNav() {
         //Initialize and assign variable
@@ -53,5 +80,9 @@ public class MypageActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    private void startSettingActivity(){
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 }

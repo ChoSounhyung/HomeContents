@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private TextView login;
@@ -19,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        if(FirebaseAuth.getInstance().getCurrentUser()== null){
+            startSignupActivity();
+        }
         setBottomNav();
         init();
         setUp();
@@ -86,4 +89,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+    private void startSignupActivity(){
+        Intent intent = new Intent(this, SignupActivity.class);
+        startActivity(intent);
+    }
 }

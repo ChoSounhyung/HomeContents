@@ -74,11 +74,15 @@ public class SignupActivity extends AppCompatActivity {
                                     Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "회원가입에 실패하였습니다..", Toast.LENGTH_LONG).show();
+                                    if(task.getException() != null){
+                                        showToast(task.getException().toString());
 
+                                    }else{
+                                        showToast("회원가입에 실패하셨습니다.");
+                                    }
                                 }
                             } else {
-                                Toast.makeText(getApplicationContext(), "비밀번호가 잘못입력되었습니다.", Toast.LENGTH_LONG).show();
+                                showToast("비밀번호를 확인해주세요.");
                             }
                         }
 
@@ -94,4 +98,8 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    private void showToast(String str){
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+    }
 }
