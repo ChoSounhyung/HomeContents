@@ -5,22 +5,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MypageActivity extends AppCompatActivity {
     private ImageView mypage_setting;
-
+    private TextView mypage_name;
+    private TextView mypage_email;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
         setBottomNav();
+        mAuth = FirebaseAuth.getInstance();
         init();
         setUp();
     }
@@ -32,8 +45,13 @@ public class MypageActivity extends AppCompatActivity {
     }
 
     private void init() {
+        mypage_name= findViewById(R.id.mypage_name);
+        mypage_email= findViewById(R.id.mypage_email);
         mypage_setting = findViewById(R.id.mypage_setting);
+
     }
+
+
 
     private void setUp() {
         mypage_setting.setOnClickListener(goSettingPage);
@@ -84,5 +102,9 @@ public class MypageActivity extends AppCompatActivity {
     private void startSettingActivity(){
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
+    }
+
+    private void showToast(String str){
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
     }
 }
