@@ -40,6 +40,11 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
     private void init() {
         signup_btn = findViewById(R.id.signup_btn);
         signup_login = findViewById(R.id.signup_login);
@@ -50,11 +55,6 @@ public class SignupActivity extends AppCompatActivity {
         signup_login.setOnClickListener(goRealLoginPage);
 
     }
-
-    void toast(String str){
-
-    }
-
     View.OnClickListener goLoginPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -72,8 +72,7 @@ public class SignupActivity extends AppCompatActivity {
                             if (password.equals(passwordConfirm)) {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                                    startActivity(intent);
+                                    startLoginActivity();
                                 } else {
                                     if(task.getException() != null){
                                         showToast(task.getException().toString());
@@ -102,5 +101,10 @@ public class SignupActivity extends AppCompatActivity {
 
     private void showToast(String str){
         Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+    }
+
+    private void startLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

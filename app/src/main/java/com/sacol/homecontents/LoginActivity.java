@@ -45,6 +45,11 @@ public class LoginActivity extends AppCompatActivity {
         signupBtn = findViewById(R.id.login_signup);
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
     private void setUp() {
         loginBtn.setOnClickListener(goMainPage);
         signupBtn.setOnClickListener(goSignupPage);
@@ -91,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
 
     private void startMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
