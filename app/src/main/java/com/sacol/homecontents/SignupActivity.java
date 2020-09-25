@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,13 +29,17 @@ public class SignupActivity extends AppCompatActivity {
     private Button signup_btn;
     private TextView signup_login;
     private FirebaseAuth mAuth;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+    private CollectionReference users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
         init();
         setUp();
     }
@@ -76,37 +81,16 @@ public class SignupActivity extends AppCompatActivity {
 
                             if (password.equals(passwordConfirm)) {
                                 if (task.isSuccessful()) {
-
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    String email = user.getEmail();
-                                    String uid = user.getUid();
                                     HashMap<Object,String> userDate = new HashMap<>();
-                                    userDate.put("uid",uid);
+                                    userDate.put("uid",user.getUid());
                                     userDate.put("email",email);
                                     userDate.put("name", name);
-                                    db.collection("users")
-                                            .add(userDate)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    showToast("성공!");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    showToast(e.toString());
-                                                }
-                                            });
+                                    users  = db.collection("users");
+                                    users.document(user.getUid()).set(userDate);
                                     startLoginActivity();
 
                                 } else {
-                                    if(task.getException() != null){
-                                        showToast(task.getException().toString());
-
-                                    }else{
-                                        showToast("회원가입에 실패하셨습니다.");
-                                    }
+                                   showToast("회원가입에 실패하셨습니다.");
                                 }
                             } else {
                                 showToast("비밀번호를 확인해주세요.");

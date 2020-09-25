@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,22 +19,28 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class MypageActivity extends AppCompatActivity {
     private ImageView mypage_setting;
     private TextView mypage_name;
     private TextView mypage_email;
     private FirebaseAuth mAuth;
+    private  FirebaseFirestore db;
+    private  FirebaseUser user;
+    private String uid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
         setBottomNav();
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        uid = user.getUid();
+        db = FirebaseFirestore.getInstance();
         init();
         setUp();
+        userDate();
     }
 
     @Override
@@ -49,9 +54,26 @@ public class MypageActivity extends AppCompatActivity {
         mypage_email= findViewById(R.id.mypage_email);
         mypage_setting = findViewById(R.id.mypage_setting);
 
+
     }
-
-
+    private  void userDate(){
+        DocumentReference docRef = db.collection("users").document(uid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        mypage_name.setText(document.getData().get("name").toString());
+                        mypage_email.setText(document.getData().get("email").toString());
+                    } else {
+                        mypage_name.setText("사용자");
+                        mypage_email.setText(user.getEmail().toString());
+                    }
+                }
+            }
+        });
+    }
 
     private void setUp() {
         mypage_setting.setOnClickListener(goSettingPage);
