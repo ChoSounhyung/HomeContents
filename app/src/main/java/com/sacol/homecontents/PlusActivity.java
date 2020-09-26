@@ -6,52 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PlusActivity extends AppCompatActivity {
+    private ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus);
 
-        setBottomNav();
+        backBtn = findViewById(R.id.plus_back);
+        backBtn.setOnClickListener(goBack);
     }
 
-    private void setBottomNav() {
-        //Initialize and assign variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-
-        //Set plus selected
-        bottomNavigationView.setSelectedItemId(R.id.plus);
-
-        //Perform ItemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.hashtag:
-                        startActivity(new Intent(getApplicationContext(), HashtagActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.plus:
-                        return true;
-                    case R.id.storage:
-                        startActivity(new Intent(getApplicationContext(), StorageActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.mypage:
-                        startActivity(new Intent(getApplicationContext(), MypageActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
+    View.OnClickListener goBack = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(PlusActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    };
 }
