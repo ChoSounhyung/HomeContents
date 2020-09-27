@@ -11,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
-        <activity android:name=".SettingActivity"></activity>
-        <activity android:name=".SignupActivity">
+        <activity android:name=".StorageActivity"></activity>
+        <activity android:name=".HashtagActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +23,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MypageActivity" />
-        <activity android:name=".StorageActivity" />
         <activity android:name=".PlusActivity" />
-        <activity android:name=".HashtagActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SignupActivity" />
     </application>
 
 </manifest>

@@ -7,28 +7,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.w3c.dom.Text;
+
+import java.util.HashMap;
 
 public class SignupActivity extends AppCompatActivity {
     private Button signup_btn;
     private TextView signup_login;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+    private CollectionReference users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
         init();
         setUp();
     }
@@ -37,6 +45,11 @@ public class SignupActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
     }
 
     private void init() {
@@ -49,18 +62,13 @@ public class SignupActivity extends AppCompatActivity {
         signup_login.setOnClickListener(goRealLoginPage);
 
     }
-
-    void toast(String str){
-
-    }
-
     View.OnClickListener goLoginPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            final String name = ((EditText) findViewById(R.id.signUp_name)).getText().toString();
-            final String email = ((EditText) findViewById(R.id.signUp_email)).getText().toString();
-            final String password = ((EditText) findViewById(R.id.signUp_pwd)).getText().toString();
-            final String passwordConfirm = ((EditText) findViewById(R.id.signUp_pwdConfirm)).getText().toString();
+            final String name = ((TextInputEditText) findViewById(R.id.signUp_name)).getText().toString();
+            final String email = ((TextInputEditText) findViewById(R.id.signUp_email)).getText().toString();
+            final String password = ((TextInputEditText) findViewById(R.id.signUp_pwd)).getText().toString();
+            final String passwordConfirm = ((TextInputEditText) findViewById(R.id.signUp_pwdConfirm)).getText().toString();
 
 
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -70,15 +78,19 @@ public class SignupActivity extends AppCompatActivity {
 
                             if (password.equals(passwordConfirm)) {
                                 if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "회원가입에 실패하였습니다..", Toast.LENGTH_LONG).show();
+                                    HashMap<Object,String> userDate = new HashMap<>();
+                                    userDate.put("uid",user.getUid());
+                                    userDate.put("email",email);
+                                    userDate.put("name", name);
+                                    users  = db.collection("users");
+                                    users.document(user.getUid()).set(userDate);
+                                    startLoginActivity();
 
+                                } else {
+                                   showToast("회원가입에 실패하셨습니다.");
                                 }
                             } else {
-                                Toast.makeText(getApplicationContext(), "비밀번호가 잘못입력되었습니다.", Toast.LENGTH_LONG).show();
+                                showToast("비밀번호를 확인해주세요.");
                             }
                         }
 
@@ -94,4 +106,13 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    private void showToast(String str){
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+    }
+
+    private void startLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

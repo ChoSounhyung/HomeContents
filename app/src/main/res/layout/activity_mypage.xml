@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="23sp"
                     android:textColor="@color/black"
-                    android:text="사용자"/>
+                    />
 
                 <TextView
                     android:id="@+id/mypage_email"
@@ -63,7 +63,7 @@
                     android:layout_marginTop="10dp"
                     android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:text="s2019w36@e-mirim.hs.kr"/>
+                   />
 
             </LinearLayout>
 

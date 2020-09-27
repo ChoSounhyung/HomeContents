@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MAIN"
+        android:text="Storage"
         android:textSize="30sp"
         android:layout_centerInParent="true"/>
 
@@ -16,13 +17,10 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_nav_rect"
+        app:itemBackground="@color/main"
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         app:menu="@menu/bottom_nav_menu"/>
 
 </RelativeLayout>
