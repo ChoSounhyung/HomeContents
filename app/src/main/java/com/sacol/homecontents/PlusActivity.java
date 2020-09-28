@@ -12,18 +12,18 @@ import android.widget.ImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PlusActivity extends AppCompatActivity {
-    private ImageView backBtn;
+    private ImageView cancelBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus);
 
-        backBtn = findViewById(R.id.plus_back);
-        backBtn.setOnClickListener(goBack);
+        cancelBtn = findViewById(R.id.plus_cancel);
+        cancelBtn.setOnClickListener(cancel);
     }
 
-    View.OnClickListener goBack = new View.OnClickListener() {
+    View.OnClickListener cancel = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(PlusActivity.this, MainActivity.class);
