@@ -16,6 +16,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -29,6 +31,7 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseFirestore db;
     private CollectionReference users;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +40,15 @@ public class SignupActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         init();
+
         setUp();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     @Override
@@ -82,12 +86,11 @@ public class SignupActivity extends AppCompatActivity {
                                     userDate.put("uid",user.getUid());
                                     userDate.put("email",email);
                                     userDate.put("name", name);
-                                    users  = db.collection("users");
-                                    users.document(user.getUid()).set(userDate);
+                                    mDatabase.child("users").child(user.getUid()).setValue(userDate);
                                     startLoginActivity();
 
                                 } else {
-                                   showToast("회원가입에 실패하셨습니다.");
+                                    showToast("회원가입에 실패하셨습니다.");
                                 }
                             } else {
                                 showToast("비밀번호를 확인해주세요.");
