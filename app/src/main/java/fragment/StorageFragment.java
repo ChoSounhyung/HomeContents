@@ -61,4 +61,5 @@ public class StorageFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_storage, container, false);
     }
+
 }
