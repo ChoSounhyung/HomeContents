@@ -29,8 +29,6 @@ public class SignupActivity extends AppCompatActivity {
     private TextView signup_login;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private FirebaseFirestore db;
-    private CollectionReference users;
     private DatabaseReference mDatabase;
 
     @Override
@@ -38,7 +36,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         init();
@@ -105,8 +102,7 @@ public class SignupActivity extends AppCompatActivity {
     View.OnClickListener goRealLoginPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-            startActivity(intent);
+            startLoginActivity();
         }
     };
 
