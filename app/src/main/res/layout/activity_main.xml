@@ -7,4 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue_purple"
+        android:src="@drawable/add_icon"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/white"
+        app:borderWidth="0dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
