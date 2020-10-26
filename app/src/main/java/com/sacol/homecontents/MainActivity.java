@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +27,21 @@ public class MainActivity extends AppCompatActivity {
             startSignupActivity();
         }
 
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(goPlusPage);
+
     }
 
     private void startSignupActivity(){
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
+
+    View.OnClickListener goPlusPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, PlusActivity.class);
+            startActivity(intent);
+        }
+    };
 }
