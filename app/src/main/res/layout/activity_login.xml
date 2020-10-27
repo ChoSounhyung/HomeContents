@@ -72,7 +72,7 @@
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/go_page_rect"
+        android:background="@drawable/login_signup_btn"
         android:text="LOGIN"
         android:textColor="@color/white"
         android:textSize="20dp"
