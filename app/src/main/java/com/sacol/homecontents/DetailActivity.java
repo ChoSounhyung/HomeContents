@@ -1,6 +1,7 @@
 package com.sacol.homecontents;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 public class DetailActivity extends AppCompatActivity {

@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
+        <activity android:name=".DetailActivity"></activity>
         <activity android:name=".SettingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
