@@ -4,31 +4,32 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
+import android.widget.Adapter;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-import fragment.HashtagFragment;
-import fragment.MainFragment;
-import fragment.MypageFragment;
-import fragment.StorageFragment;
+import java.util.ArrayList;
+import java.util.List;
+
+import adapter.MainAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
+    private FloatingActionButton fab;
 
-    //Frame Layout에 각 메뉴의Fragment를 바꿔줌
-    private FragmentManager fragmentManager = getSupportFragmentManager();
-    private MainFragment mainFragment = new MainFragment();
-    private HashtagFragment hashtagFragment = new HashtagFragment();
-    private StorageFragment storageFragment = new StorageFragment();
-    private MypageFragment mypageFragment = new MypageFragment();
-
+    private ViewPager viewPager;
+    private MainAdapter mainAdapter;
+    private List<Model> models;
 
 
     @Override
@@ -36,58 +37,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(FirebaseAuth.getInstance().getCurrentUser()== null){
-            startSignupActivity();
-        }
+        models = new ArrayList<>();
+        models.add(new Model(R.drawable.sample1, "5000번 저어 만드는 오므라이스", "asdfasdf00"));
+        models.add(new Model(R.drawable.sample2, "아무노래 챌린지", "sdfgsdfg11"));
+        models.add(new Model(R.drawable.sample3, "달고나 커피 만들기", "qwerqwer22"));
+        models.add(new Model(R.drawable.sample4, "피포페인팅", "zxcvzxcv33"));
+
+        mainAdapter = new MainAdapter(models, this);
 
         init();
         setUp();
 
-        //첫화면 지정
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.main_layout, mainFragment).commitNowAllowingStateLoss();
-
-        bottomNavigationView = findViewById(R.id.bottom_nav);
-
-        //bottomNavigationView의 아이템이 선택 될 때 호출될 리스너 등록
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                switch (item.getItemId()) {
-                    case R.id.home:transaction.replace(R.id.main_layout, mainFragment).commitNowAllowingStateLoss();
-                        return false;
-                    case R.id.hashtag:
-                        transaction.replace(R.id.main_layout, hashtagFragment).commitNowAllowingStateLoss();
-                        return false;
-                    case R.id.plus:
-                        startActivity(new Intent(getApplicationContext(), PlusActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.storage:
-                        transaction.replace(R.id.main_layout, storageFragment).commitNowAllowingStateLoss();
-                        return false;
-                    case R.id.mypage:
-                        transaction.replace(R.id.main_layout, mypageFragment).commitNowAllowingStateLoss();
-                        return false;
-                }return false;
-            }
-        });
+        //Firebase
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startSignupActivity();
+        }
 
     }
 
-    private void init() {
-
+    public void init() {
+        fab = findViewById(R.id.fab);
+        viewPager = findViewById(R.id.viewPager);
     }
 
-    private void setUp() {
-
+    public void setUp() {
+        fab.setOnClickListener(goPlusPage);
+        viewPager.setAdapter(mainAdapter);
+        viewPager.setPadding(130, 360, 130, 0);
     }
-
 
     private void startSignupActivity(){
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
+
+    View.OnClickListener goPlusPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, PlusActivity.class);
+            startActivity(intent);
+        }
+    };
 }
