@@ -106,7 +106,7 @@
             android:id="@+id/signup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bottom_nav_rect"
+            android:background="@drawable/go_page_rect"
             android:text="SIGN UP"
             android:textColor="@color/white"
             android:textSize="20dp"
