@@ -3,7 +3,11 @@ package com.sacol.homecontents;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,8 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private DetailAdapter detailAdapter;
     private List<Model> models;
+
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +39,19 @@ public class DetailActivity extends AppCompatActivity {
 
     public void init() {
         viewPager = findViewById(R.id.viewPager);
+        back = findViewById(R.id.detail_back);
     }
 
     public void setUp() {
         viewPager.setAdapter(detailAdapter);
         viewPager.setPadding(0, 0, 0, 0);
+        back.setOnClickListener(goBackPage);
     }
+
+    View.OnClickListener goBackPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            DetailActivity.this.finish();
+        }
+    };
 }
