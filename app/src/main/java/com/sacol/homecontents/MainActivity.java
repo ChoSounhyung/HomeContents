@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public void setUp() {
         fab.setOnClickListener(goPlusPage);
         viewPager.setAdapter(mainAdapter);
-        viewPager.setPadding(130, 360, 130, 0);
+        viewPager.setPadding(70, 0, 70, 0);
     }
 
     private void startSignupActivity(){
