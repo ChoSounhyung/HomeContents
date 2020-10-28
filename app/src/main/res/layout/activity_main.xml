@@ -67,7 +67,8 @@
         android:background="@drawable/go_page_rect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        android:elevation="3dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,15 +78,15 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="80dp"/>
 
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/mypage_icon"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginLeft="20dp"/>
         
     </RelativeLayout>
 
@@ -101,7 +102,8 @@
         android:background="@drawable/go_page_rect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/go_mypage">
+        app:layout_constraintTop_toBottomOf="@+id/go_mypage"
+        android:elevation="3dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,15 +113,15 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="80dp"/>
 
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/mystorage_icon"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginLeft="20dp"/>
 
     </RelativeLayout>
 
@@ -128,7 +130,7 @@
         android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/blue_purple"
+        android:backgroundTint="@color/main"
         android:src="@drawable/add_icon"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
