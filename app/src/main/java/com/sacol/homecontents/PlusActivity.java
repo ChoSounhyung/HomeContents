@@ -37,6 +37,7 @@ public class PlusActivity extends AppCompatActivity {
 
         init();
         setUp();
+        checkSelfPermission();
     }
 
     public void init() {

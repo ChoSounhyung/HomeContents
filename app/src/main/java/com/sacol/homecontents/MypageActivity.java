@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class MypageActivity extends AppCompatActivity {
     private ImageView mypage_setting;
+    private ImageView mypage_back;
     private TextView mypage_name;
     private TextView mypage_email;
     private GridView mypage_grid;
@@ -72,6 +73,7 @@ public class MypageActivity extends AppCompatActivity {
         mypage_email= findViewById(R.id.mypage_email);
         mypage_setting = findViewById(R.id.mypage_setting);
         mypage_grid = findViewById(R.id.mypage_gridview);
+        mypage_back = findViewById(R.id.mypage_back);
     }
 
     private  void userDate(){
@@ -95,12 +97,20 @@ public class MypageActivity extends AppCompatActivity {
 
     private void setUp() {
         mypage_setting.setOnClickListener(goSettingPage);
+        mypage_back.setOnClickListener(goBackPage);
     }
 
     View.OnClickListener goSettingPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             startSettingActivity();
+        }
+    };
+
+    View.OnClickListener goBackPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            MypageActivity.this.finish();
         }
     };
 
