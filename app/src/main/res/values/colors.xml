@@ -3,7 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="main">#7E75EC</color>
+    <color name="main">#7940F2</color>
     <color name="white">#FFFFFF</color>
     <color name="light_grey">#F2F2F2</color>
     <color name="midium_grey">#D1D0D0</color>
@@ -11,7 +11,6 @@
     <color name="black">#000000</color>
     <color name="light_purple">#D6D3FF</color>
     <color name="midium_purple">#C0BBFF</color>
-    <color name="blue_purple">#7940F2</color>
     <color name="nav_light">#A6A1FE</color>
     <color name="nav_dark">#8981F4</color>
 </resources>

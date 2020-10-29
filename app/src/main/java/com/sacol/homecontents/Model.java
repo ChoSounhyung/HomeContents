@@ -11,6 +11,10 @@ public class Model {
         this.cont = cont;
     }
 
+    public Model(int image) {
+        this.image = image;
+    }
+
     public int getImage() {
         return image;
     }

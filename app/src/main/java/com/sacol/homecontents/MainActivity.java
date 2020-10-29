@@ -7,12 +7,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.Adapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private MainAdapter mainAdapter;
     private List<Model> models;
 
+    private ImageView search_btn;
+    private RelativeLayout go_mypage;
+    private RelativeLayout go_mystorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +54,27 @@ public class MainActivity extends AppCompatActivity {
         init();
         setUp();
 
-
         //Firebase
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startSignupActivity();
         }
-
     }
 
     public void init() {
         fab = findViewById(R.id.fab);
         viewPager = findViewById(R.id.viewPager);
+        search_btn = findViewById(R.id.search_btn);
+        go_mypage = findViewById(R.id.go_mypage);
+        go_mystorage = findViewById(R.id.go_mystrorage);
     }
 
     public void setUp() {
         fab.setOnClickListener(goPlusPage);
         viewPager.setAdapter(mainAdapter);
-        viewPager.setPadding(130, 360, 130, 0);
+        viewPager.setPadding(70, 0, 70, 0);
+        search_btn.setOnClickListener(goSearchPage);
+        go_mypage.setOnClickListener(goMypage);
+        go_mystorage.setOnClickListener(goStorage);
     }
 
     private void startSignupActivity(){
@@ -76,6 +86,30 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(MainActivity.this, PlusActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener goSearchPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener goMypage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, MypageActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener goStorage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, MystorageActivity.class);
             startActivity(intent);
         }
     };

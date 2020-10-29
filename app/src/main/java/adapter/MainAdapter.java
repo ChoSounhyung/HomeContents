@@ -56,10 +56,8 @@ public class MainAdapter extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(position==0) {
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    context.startActivity(intent);
-                }
+                Intent intent = new Intent(context, DetailActivity.class);
+                context.startActivity(intent);
             }
         });
 
