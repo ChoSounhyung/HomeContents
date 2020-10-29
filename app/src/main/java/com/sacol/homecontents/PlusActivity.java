@@ -26,9 +26,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.InputStream;
 
 public class PlusActivity extends AppCompatActivity {
-    private ImageView cancelBtn;
-    private TextView shareBtn;
-    private ImageView plusGallery;
+    private static final int REQUEST_CODE = 0;
+
+    private ImageView cancel_btn;
+    private TextView share_btn;
+    private ImageView plus_gallery;
+    private ImageView plus_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +40,20 @@ public class PlusActivity extends AppCompatActivity {
 
         init();
         setUp();
+        checkSelfPermission();
     }
 
     public void init() {
-        cancelBtn = findViewById(R.id.plus_cancel);
-        shareBtn = findViewById(R.id.plus_share);
-        plusGallery = findViewById(R.id.plus_gallery);
+        cancel_btn = findViewById(R.id.plus_cancel);
+        share_btn = findViewById(R.id.plus_share);
+        plus_gallery = findViewById(R.id.plus_gallery);
+        plus_image = findViewById(R.id.plus_image);
     }
 
     public void setUp() {
-        cancelBtn.setOnClickListener(cancel);
-        shareBtn.setOnClickListener(share);
-        plusGallery.setOnClickListener(approach);
+        cancel_btn.setOnClickListener(cancel);
+        share_btn.setOnClickListener(share);
+        plus_gallery.setOnClickListener(approach);
     }
 
     View.OnClickListener cancel = new View.OnClickListener() {
@@ -74,8 +79,10 @@ public class PlusActivity extends AppCompatActivity {
             Intent intent = new Intent();
             //기기 기본 갤러리 접근
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+            //갤러리에서 여러 이미지 선택
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, 101);
+            startActivityForResult(intent, REQUEST_CODE);
         }
     };
 
@@ -118,17 +125,19 @@ public class PlusActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 101 && requestCode == RESULT_OK) {
-            try {
-                InputStream is = getContentResolver().openInputStream(data.getData());
-                Bitmap bm = BitmapFactory.decodeStream(is);
-                is.close();
-                plusGallery.setImageBitmap(bm);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (requestCode == REQUEST_CODE) {
+            if(requestCode == RESULT_OK) {
+                try {
+                    InputStream in = getContentResolver().openInputStream(data.getData());
+                    Bitmap img = BitmapFactory.decodeStream(in);
+                    in.close();
+                    plus_image.setImageBitmap(img);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if (requestCode == RESULT_CANCELED) {
+                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode == 101 && requestCode == RESULT_CANCELED) {
-            Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
         }
     }
 }
