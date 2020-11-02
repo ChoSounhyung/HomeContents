@@ -179,6 +179,7 @@ public class PlusActivity extends AppCompatActivity {
 //                    InputStream in = getContentResolver().openInputStream(data.getData());
 //                    Bitmap img = BitmapFactory.decodeStream(in);
                     imguri = data.getData();
+                    plus_image.setVisibility(View.VISIBLE);
                     plus_image.setImageURI(imguri);
 
 //                    in.close();
