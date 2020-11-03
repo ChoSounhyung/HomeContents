@@ -94,7 +94,7 @@ public class PlusActivity extends AppCompatActivity {
 
             //2. 업로드할 파일의 node를 참조하는 객체
             //파일 명이 중복되지 않도록 날짜를 이용
-            String filename = FirebaseAuth.getInstance().getUid()+ "content.png";//현재 시간으로 파일명 지정 20191023142634
+            String filename =  System.currentTimeMillis() +FirebaseAuth.getInstance().getUid()+ "content.png";//현재 시간으로 파일명 지정 20191023142634
             //원래 확장자는 파일의 실제 확장자를 얻어와서 사용해야함. 그러려면 이미지의 절대 주소를 구해야함.
 
             StorageReference imgRef = firebaseStorage.getReference("contentsImg/" + filename);
@@ -114,6 +114,7 @@ public class PlusActivity extends AppCompatActivity {
             contents.put("uid", FirebaseAuth.getInstance().getUid());
             contents.put("title", plus_title.getText().toString());
             contents.put("content", plus_contents.getText().toString());
+            contents.put("contentImg",filename);
             mDatabase.child("contents").push().setValue(contents);
             Intent intent = new Intent(PlusActivity.this, MainActivity.class);
             startActivity(intent);
@@ -128,7 +129,7 @@ public class PlusActivity extends AppCompatActivity {
             //기기 기본 갤러리 접근
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             //갤러리에서 여러 이미지 선택
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, REQUEST_CODE);
         }
