@@ -33,6 +33,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class PlusActivity extends AppCompatActivity {
@@ -48,6 +51,9 @@ public class PlusActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private DatabaseReference mDatabase;
+    private int i;
+    ArrayList ImageList = new ArrayList ();
+    ArrayList urlStrings = new ArrayList ();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,28 +100,56 @@ public class PlusActivity extends AppCompatActivity {
 
             //2. 업로드할 파일의 node를 참조하는 객체
             //파일 명이 중복되지 않도록 날짜를 이용
-            String filename =  System.currentTimeMillis() +FirebaseAuth.getInstance().getUid()+ "content.png";//현재 시간으로 파일명 지정 20191023142634
             //원래 확장자는 파일의 실제 확장자를 얻어와서 사용해야함. 그러려면 이미지의 절대 주소를 구해야함.
 
-            StorageReference imgRef = firebaseStorage.getReference("contentsImg/" + filename);
-            //uploads라는 폴더가 없으면 자동 생성
+
+            for (i = 0; i<ImageList.size(); i++){
+                imguri  = (Uri)ImageList.get(i);
+                String filename =  System.currentTimeMillis() +FirebaseAuth.getInstance().getUid()+i+ "content.png";
+                final StorageReference imgRef = firebaseStorage.getReference("contentsImg/" + filename);
+                UploadTask uploadTask = imgRef.putFile(imguri);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imgRef.getDownloadUrl().addOnSuccessListener(
+                                new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        urlStrings.add(String.valueOf(uri));
+                                        if (urlStrings.size() == ImageList.size()){
+                                            HashMap<String, String> imghashMap = new HashMap<>();
+
+                                            for (int i = 0; i <urlStrings.size() ; i++) {
+                                                imghashMap.put("ImgLink"+i, (String) urlStrings.get(i));
+
+                                            }
+                                            HashMap<Object, Object> contents = new HashMap<>();
+                                            SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy/MM/dd");
+
+                                            Date time = new Date();
+
+                                            String now = format1.format(time);
+                                            contents.put("uid", FirebaseAuth.getInstance().getUid());
+                                            contents.put("current_date",now);
+                                            contents.put("title", plus_title.getText().toString());
+                                            contents.put("content", plus_contents.getText().toString());
+                                            contents.put("ImgLink",imghashMap);
+                                            mDatabase.child("contents").push().setValue(contents);
+                                        }
+
+                                    }
+                                }
+                        );
+                    }
+                });
+            }
+
 
             //참조 객체를 통해 이미지 파일 업로드
             // imgRef.putFile(imgUri);
             //업로드 결과를 받고 싶다면..
-            UploadTask uploadTask = imgRef.putFile(imguri);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                }
-            });
-            HashMap<Object, String> contents = new HashMap<>();
-            contents.put("uid", FirebaseAuth.getInstance().getUid());
-            contents.put("title", plus_title.getText().toString());
-            contents.put("content", plus_contents.getText().toString());
-            contents.put("contentImg",filename);
-            mDatabase.child("contents").push().setValue(contents);
+//
             Intent intent = new Intent(PlusActivity.this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(PlusActivity.this, "컨텐츠가 공유되었습니다", Toast.LENGTH_SHORT).show();
@@ -176,6 +210,26 @@ public class PlusActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data.getClipData() != null) {
+
+            int countClipData = data.getClipData().getItemCount();
+            int currentImageSlect = 0;
+
+            while (currentImageSlect < countClipData) {
+
+                imguri = data.getClipData().getItemAt(currentImageSlect).getUri();
+                ImageList.add(imguri);
+                currentImageSlect = currentImageSlect + 1;
+            }
+
+//            alert.setVisibility(View.VISIBLE);
+//            alert.setText("You have selected" + ImageList.size() + "Images");
+//            chooserBtn.setVisibility(View.GONE);
+
+
+        } else {
+            Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
+        }
 //        if (requestCode == REQUEST_CODE) {
 //            if(requestCode == RESULT_OK) {
 //                try {
