@@ -26,6 +26,8 @@
         <activity android:name=".MypageActivity" />
         <activity android:name=".PlusActivity" />
         <activity android:name=".SignupActivity" />
+        <activity android:name=".SearchActivity"/>
+        <activity android:name=".MystorageActivity"/>
     </application>
 
 </manifest>

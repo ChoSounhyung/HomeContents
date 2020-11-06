@@ -130,6 +130,8 @@ public class PlusActivity extends AppCompatActivity {
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             //갤러리에서 여러 이미지 선택
 //            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, REQUEST_CODE);
         }
@@ -179,9 +181,9 @@ public class PlusActivity extends AppCompatActivity {
 //                try {
 //                    InputStream in = getContentResolver().openInputStream(data.getData());
 //                    Bitmap img = BitmapFactory.decodeStream(in);
-                    imguri = data.getData();
-                    plus_image.setVisibility(View.VISIBLE);
-                    plus_image.setImageURI(imguri);
+//           /         imguri = data.getData();
+//            /        plus_image.setVisibility(View.VISIBLE);
+//             /       plus_image.setImageURI(imguri);
 
 //                    in.close();
 //                    plus_image.setImageBitmap(img);
@@ -191,6 +193,33 @@ public class PlusActivity extends AppCompatActivity {
 //            }else if (requestCode == RESULT_CANCELED) {
 //                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_SHORT).show();
 //            }
+//        }
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+//            ArrayList<Image> images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
+//            Uri[] uri=new Uri[images.size()];
+//            for (int i =0 ; i < images.size(); i++) {
+//                uri[i] = Uri.parse("file://"+images.get(i).path);
+//                storageRef = storage.getReference("photos");
+//                final StorageReference ref = storageRef.child(uri[i].getLastPathSegment());
+//                ref.putFile(uri[i])
+//                        .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//                                String content = downloadUrl.toString();
+//                                if (content.length() > 0) {
+//                                    editWriteMessage.setText("");
+//                                    Message newMessage = new Message();
+//                                    newMessage.text = content;
+//                                    newMessage.idSender = StaticConfig.UID;
+//                                    newMessage.idReceiver = roomId;
+//                                    newMessage.timestamp = System.currentTimeMillis();
+//                                    FirebaseDatabase.getInstance().getReference().child("message/" + roomId).push().setValue(newMessage);
+//                                }
+//                            }
+//                        });
+//
+//            }
+
 //        }
     }
 }

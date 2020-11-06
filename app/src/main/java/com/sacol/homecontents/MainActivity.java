@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView search_btn;
     private RelativeLayout go_mypage;
     private RelativeLayout go_mystorage;
+    String title;
+    String content;
+    int img;
     private DatabaseReference databaseRefernece;
 
     @Override
@@ -56,11 +59,14 @@ public class MainActivity extends AppCompatActivity {
 //        models.add(new Model(R.drawable.sample4, "피포페인팅", "zxcvzxcv33"));
 //
 //        mainAdapter = new MainAdapter(models, this);
-        initDatabase();
 
         init();
         setUp();
+        initDatabase();
+        models.add(new Model(R.drawable.sample1, title,content));
+
         //Firebase
+        mainAdapter = new MainAdapter(models, this);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startSignupActivity();
         }
@@ -82,38 +88,45 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(goSearchPage);
         go_mypage.setOnClickListener(goMypage);
         go_mystorage.setOnClickListener(goStorage);
+        databaseRefernece = FirebaseDatabase.getInstance().getReference();
+        models = new ArrayList<>();
     }
 
     private void initDatabase() {
-        databaseRefernece = FirebaseDatabase.getInstance().getReference();
-
-        models = new ArrayList<>();
 
 
         databaseRefernece.child("contents").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                models.clear();
 
-                for (DataSnapshot content : snapshot.getChildren()) {
+                for (DataSnapshot homecontent : snapshot.getChildren()) {
 
-                    models.add(new Model(R.drawable.sample1, content.child("title").getValue().toString(), content.child("content").getValue().toString()));
+                    title = (String) homecontent.child("title").getValue();
+                    content = (String) homecontent.child("content").getValue();
+                    img =R.drawable.sample1;
+                    models.add(new Model(img, title,content));
 //                    showToast(content.child("title").getValue().toString());
                 }
-
+//                models.notify();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
+//        models.add(new Model(R.drawable.sample1, "dd","dd"));
+//        models.add(new Model(R.drawable.sample1, "dd","dd"));
 
-        mainAdapter = new MainAdapter(models, this);
+//        mainAdapter = new MainAdapter(models, this);
 
     }
-    private void showToast(String str){
-        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+
+    private void showToast(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
     private void startSignupActivity() {
