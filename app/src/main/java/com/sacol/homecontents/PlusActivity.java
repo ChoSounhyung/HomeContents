@@ -52,8 +52,9 @@ public class PlusActivity extends AppCompatActivity {
     private StorageReference storageRef;
     private DatabaseReference mDatabase;
     private int i;
-    ArrayList ImageList = new ArrayList ();
-    ArrayList urlStrings = new ArrayList ();
+    private ArrayList ImageList;
+    private ArrayList urlStrings;
+    private String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,8 @@ public class PlusActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
+        ImageList = new ArrayList();
+        urlStrings = new ArrayList();
     }
 
 
@@ -98,14 +100,9 @@ public class PlusActivity extends AppCompatActivity {
         public void onClick(View view) {
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
-            //2. 업로드할 파일의 node를 참조하는 객체
-            //파일 명이 중복되지 않도록 날짜를 이용
-            //원래 확장자는 파일의 실제 확장자를 얻어와서 사용해야함. 그러려면 이미지의 절대 주소를 구해야함.
-
-
-            for (i = 0; i<ImageList.size(); i++){
-                imguri  = (Uri)ImageList.get(i);
-                String filename =  System.currentTimeMillis() +FirebaseAuth.getInstance().getUid()+i+ "content.png";
+            for (i = 0; i < ImageList.size(); i++) {
+                imguri = (Uri) ImageList.get(i);
+                filename = System.currentTimeMillis() + FirebaseAuth.getInstance().getUid() + i + "content.png";
                 final StorageReference imgRef = firebaseStorage.getReference("contentsImg/" + filename);
                 UploadTask uploadTask = imgRef.putFile(imguri);
                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -116,24 +113,24 @@ public class PlusActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         urlStrings.add(String.valueOf(uri));
-                                        if (urlStrings.size() == ImageList.size()){
+                                        if (urlStrings.size() == ImageList.size()) {
                                             HashMap<String, String> imghashMap = new HashMap<>();
 
-                                            for (int i = 0; i <urlStrings.size() ; i++) {
-                                                imghashMap.put("ImgLink"+i, (String) urlStrings.get(i));
+                                            for (int i = 0; i < urlStrings.size(); i++) {
+                                                imghashMap.put("ImgLink" + i, (String) urlStrings.get(i));
 
                                             }
                                             HashMap<Object, Object> contents = new HashMap<>();
-                                            SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy/MM/dd");
+                                            SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
 
                                             Date time = new Date();
 
                                             String now = format1.format(time);
                                             contents.put("uid", FirebaseAuth.getInstance().getUid());
-                                            contents.put("current_date",now);
+                                            contents.put("current_date", now);
                                             contents.put("title", plus_title.getText().toString());
                                             contents.put("content", plus_contents.getText().toString());
-                                            contents.put("ImgLink",imghashMap);
+                                            contents.put("ImgLink", imghashMap);
                                             mDatabase.child("contents").push().setValue(contents);
                                         }
 
@@ -144,12 +141,6 @@ public class PlusActivity extends AppCompatActivity {
                 });
             }
 
-
-            //참조 객체를 통해 이미지 파일 업로드
-            // imgRef.putFile(imgUri);
-            //업로드 결과를 받고 싶다면..
-
-//
             Intent intent = new Intent(PlusActivity.this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(PlusActivity.this, "컨텐츠가 공유되었습니다", Toast.LENGTH_SHORT).show();
@@ -162,10 +153,7 @@ public class PlusActivity extends AppCompatActivity {
             Intent intent = new Intent();
             //기기 기본 갤러리 접근
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-            //갤러리에서 여러 이미지 선택
-//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, REQUEST_CODE);
         }
@@ -174,10 +162,10 @@ public class PlusActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //권한을 허용 했을 경우
-        if(requestCode == 1) {
+        if (requestCode == 1) {
             int length = permissions.length;
-            for(int i=0; i < length; i++) {
-                if(grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+            for (int i = 0; i < length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     //동의
                     Log.d("PlusActivity", "권한 허용 : " + permissions[i]);
                 }
@@ -198,7 +186,7 @@ public class PlusActivity extends AppCompatActivity {
             temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
         }
 
-        if(TextUtils.isEmpty(temp) == false) {
+        if (TextUtils.isEmpty(temp) == false) {
             //권한 요청
             ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
         } else {
@@ -222,58 +210,8 @@ public class PlusActivity extends AppCompatActivity {
                 currentImageSlect = currentImageSlect + 1;
             }
 
-//            alert.setVisibility(View.VISIBLE);
-//            alert.setText("You have selected" + ImageList.size() + "Images");
-//            chooserBtn.setVisibility(View.GONE);
-
-
         } else {
             Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
         }
-//        if (requestCode == REQUEST_CODE) {
-//            if(requestCode == RESULT_OK) {
-//                try {
-//                    InputStream in = getContentResolver().openInputStream(data.getData());
-//                    Bitmap img = BitmapFactory.decodeStream(in);
-//           /         imguri = data.getData();
-//            /        plus_image.setVisibility(View.VISIBLE);
-//             /       plus_image.setImageURI(imguri);
-
-//                    in.close();
-//                    plus_image.setImageBitmap(img);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }else if (requestCode == RESULT_CANCELED) {
-//                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-//            ArrayList<Image> images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
-//            Uri[] uri=new Uri[images.size()];
-//            for (int i =0 ; i < images.size(); i++) {
-//                uri[i] = Uri.parse("file://"+images.get(i).path);
-//                storageRef = storage.getReference("photos");
-//                final StorageReference ref = storageRef.child(uri[i].getLastPathSegment());
-//                ref.putFile(uri[i])
-//                        .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//                                String content = downloadUrl.toString();
-//                                if (content.length() > 0) {
-//                                    editWriteMessage.setText("");
-//                                    Message newMessage = new Message();
-//                                    newMessage.text = content;
-//                                    newMessage.idSender = StaticConfig.UID;
-//                                    newMessage.idReceiver = roomId;
-//                                    newMessage.timestamp = System.currentTimeMillis();
-//                                    FirebaseDatabase.getInstance().getReference().child("message/" + roomId).push().setValue(newMessage);
-//                                }
-//                            }
-//                        });
-//
-//            }
-
-//        }
     }
 }
