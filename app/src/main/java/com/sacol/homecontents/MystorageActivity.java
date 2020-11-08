@@ -32,7 +32,7 @@ public class MystorageActivity extends AppCompatActivity {
         mystorageAdapter.addItem(new Model(R.drawable.sample2));
         mystorageAdapter.addItem(new Model(R.drawable.sample3));
         mystorageAdapter.addItem(new Model(R.drawable.sample2));
-        mystorageAdapter.addItem(new Model(R.drawable.sample1));
+        mystorageAdapter.addItem(new Model(R.drawable.sample4));
 
         mystorage_grid.setAdapter(mystorageAdapter);
     }
