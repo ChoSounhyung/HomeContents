@@ -21,6 +21,8 @@ public class DetailActivity extends AppCompatActivity {
     private List<Model> models;
 
     private ImageView back;
+    private ImageView save;
+    private boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +42,32 @@ public class DetailActivity extends AppCompatActivity {
     public void init() {
         viewPager = findViewById(R.id.viewPager);
         back = findViewById(R.id.detail_back);
+        save = findViewById(R.id.detail_storage);
     }
 
     public void setUp() {
         viewPager.setAdapter(detailAdapter);
         viewPager.setPadding(0, 0, 0, 0);
         back.setOnClickListener(goBackPage);
+        save.setOnClickListener(saveContent);
     }
 
     View.OnClickListener goBackPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             DetailActivity.this.finish();
+        }
+    };
+    View.OnClickListener saveContent = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (!flag) {
+                save.setImageResource(R.drawable.storage_filled_icon);
+                flag = true;
+            } else {
+                save.setImageResource(R.drawable.storage_icon);
+                flag = false;
+            }
         }
     };
 }
