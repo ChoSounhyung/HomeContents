@@ -57,6 +57,7 @@ public class MainAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("date" , models.get(position).getDate());
                 context.startActivity(intent);
             }
         });
@@ -71,12 +72,4 @@ public class MainAdapter extends PagerAdapter {
         container.removeView((View)object);
     }
 
-    public void addItem(String title, String content) {
-        Model item = new Model();
-
-        item.setTitle(title);
-        item.setCont(content);
-
-
-    }
 }

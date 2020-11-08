@@ -119,6 +119,7 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:id="@+id/test"
             android:background="@drawable/mystorage_icon"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"

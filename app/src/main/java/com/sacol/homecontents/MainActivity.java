@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         databaseRefernece = FirebaseDatabase.getInstance().getReference();
         models = new ArrayList<>();
         mainAdapter = new MainAdapter(models, this);
-
     }
 
     public void setUp() {
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
                     models.add(new Model(R.drawable.sample1, (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue()));
+//                    showToast(homecontent.getKey());
                 }
                 mainAdapter.notifyDataSetChanged();
 
@@ -90,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+    private void showToast(String str){
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
     }
     private void startSignupActivity(){
         Intent intent = new Intent(this, SignupActivity.class);
