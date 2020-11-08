@@ -2,25 +2,21 @@ package com.sacol.homecontents;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,26 +34,21 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout go_mypage;
     private RelativeLayout go_mystorage;
 
+    private DatabaseReference databaseRefernece;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        models = new ArrayList<>();
-        models.add(new Model(R.drawable.sample1, "5000번 저어 만드는 오므라이스", "asdfasdf00"));
-        models.add(new Model(R.drawable.sample2, "아무노래 챌린지", "sdfgsdfg11"));
-        models.add(new Model(R.drawable.sample3, "달고나 커피 만들기", "qwerqwer22"));
-        models.add(new Model(R.drawable.sample4, "피포페인팅", "zxcvzxcv33"));
-
-        mainAdapter = new MainAdapter(models, this);
-
-        init();
-        setUp();
-
         //Firebase
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startSignupActivity();
         }
+
+        init();
+        setUp();
+        initDatabase();
+
     }
 
     public void init() {
@@ -66,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         search_btn = findViewById(R.id.search_btn);
         go_mypage = findViewById(R.id.go_mypage);
         go_mystorage = findViewById(R.id.go_mystrorage);
+        databaseRefernece = FirebaseDatabase.getInstance().getReference();
+        models = new ArrayList<>();
+        mainAdapter = new MainAdapter(models, this);
+
     }
 
     public void setUp() {
@@ -77,6 +72,25 @@ public class MainActivity extends AppCompatActivity {
         go_mystorage.setOnClickListener(goStorage);
     }
 
+    private void initDatabase() {
+
+
+        databaseRefernece.child("contents").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot homecontent : snapshot.getChildren()) {
+                    models.add(new Model(R.drawable.sample1, (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue()));
+                }
+                mainAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void startSignupActivity(){
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);

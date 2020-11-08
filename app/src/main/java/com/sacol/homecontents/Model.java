@@ -5,11 +5,15 @@ public class Model {
     private String title;
     private String cont;
 
+    public Model(){
+
+    }
     public Model(int image, String title, String cont) {
         this.image = image;
         this.title = title;
         this.cont = cont;
     }
+
 
     public Model(int image) {
         this.image = image;

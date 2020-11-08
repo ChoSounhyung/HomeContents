@@ -70,4 +70,13 @@ public class MainAdapter extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View)object);
     }
+
+    public void addItem(String title, String content) {
+        Model item = new Model();
+
+        item.setTitle(title);
+        item.setCont(content);
+
+
+    }
 }
