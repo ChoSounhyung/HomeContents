@@ -76,6 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/plus_gallery"
         android:visibility="gone"/>
 
+
     <EditText
         android:id="@+id/plus_contents"
         android:layout_width="match_parent"

@@ -10,7 +10,6 @@ public class Model {
 
     }
 
-
     public Model(String image, String title, String cont , String date) {
         this.image = image;
         this.title = title;

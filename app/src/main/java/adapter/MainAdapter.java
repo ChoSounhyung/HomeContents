@@ -50,13 +50,13 @@ public class MainAdapter extends PagerAdapter {
 
         image = view.findViewById(R.id.main_image);
         title = view.findViewById(R.id.main_title);
-
-//        image.setImageResource(models.get(position).getImage());
         title.setText(models.get(position).getTitle());
+
         Glide
                 .with(view)
                 .load(models.get(position).getImage())
                 .into(image);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

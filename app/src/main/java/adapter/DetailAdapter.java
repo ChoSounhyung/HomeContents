@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.sacol.homecontents.DetailActivity;
 import com.sacol.homecontents.Model;
 import com.sacol.homecontents.R;
@@ -29,7 +30,7 @@ public class DetailAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return models.size();
+        return 0;
     }
 
     @Override
@@ -42,11 +43,13 @@ public class DetailAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.detail_image_item, container, false);
-
         ImageView image;
-
         image = view.findViewById(R.id.detail_image);
-//        image.setImageResource(models.get(position).getImage());
+
+        Glide
+                .with(view)
+                .load(models.get(position).getImage())
+                .into(image);
 
         container.addView(view, 0);
 
