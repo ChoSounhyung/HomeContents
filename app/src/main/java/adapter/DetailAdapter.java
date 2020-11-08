@@ -46,7 +46,7 @@ public class DetailAdapter extends PagerAdapter {
         ImageView image;
 
         image = view.findViewById(R.id.detail_image);
-        image.setImageResource(models.get(position).getImage());
+//        image.setImageResource(models.get(position).getImage());
 
         container.addView(view, 0);
 

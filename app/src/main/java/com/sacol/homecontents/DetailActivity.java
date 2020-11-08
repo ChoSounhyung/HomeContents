@@ -27,9 +27,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        models = new ArrayList<>();
-        models.add(new Model(R.drawable.sample1));
-        models.add(new Model(R.drawable.sample2));
+//        models = new ArrayList<>();
+//        models.add(new Model(R.drawable.sample1));
+//        models.add(new Model(R.drawable.sample2));
 
         detailAdapter = new DetailAdapter(models, this);
 

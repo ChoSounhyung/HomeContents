@@ -1,7 +1,7 @@
 package com.sacol.homecontents;
 
 public class Model {
-    private int image;
+    private String image;
     private String title;
     private String cont;
     private String date;
@@ -11,7 +11,7 @@ public class Model {
     }
 
 
-    public Model(int image, String title, String cont , String date) {
+    public Model(String image, String title, String cont , String date) {
         this.image = image;
         this.title = title;
         this.cont = cont;
@@ -19,15 +19,15 @@ public class Model {
     }
 
 
-    public Model(int image) {
+    public Model(String image) {
         this.image = image;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

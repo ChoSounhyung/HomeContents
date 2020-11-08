@@ -53,12 +53,12 @@ public class MypageActivity extends AppCompatActivity {
         setUp();
         userDate();
 
-        mypageAdapter = new MypageAdapter();
-        mypageAdapter.addItem(new Model(R.drawable.sample1));
-        mypageAdapter.addItem(new Model(R.drawable.sample2));
-        mypageAdapter.addItem(new Model(R.drawable.sample3));
-        mypageAdapter.addItem(new Model(R.drawable.sample4));
-        mypageAdapter.addItem(new Model(R.drawable.sample3));
+//        mypageAdapter = new MypageAdapter();
+//        mypageAdapter.addItem(new Model(R.drawable.sample1));
+//        mypageAdapter.addItem(new Model(R.drawable.sample2));
+//        mypageAdapter.addItem(new Model(R.drawable.sample3));
+//        mypageAdapter.addItem(new Model(R.drawable.sample4));
+//        mypageAdapter.addItem(new Model(R.drawable.sample3));
 
         mypage_grid.setAdapter(mypageAdapter);
     }

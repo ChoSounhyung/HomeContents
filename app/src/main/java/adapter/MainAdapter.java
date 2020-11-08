@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.sacol.homecontents.DetailActivity;
 import com.sacol.homecontents.MainActivity;
 import com.sacol.homecontents.Model;
@@ -50,9 +51,12 @@ public class MainAdapter extends PagerAdapter {
         image = view.findViewById(R.id.main_image);
         title = view.findViewById(R.id.main_title);
 
-        image.setImageResource(models.get(position).getImage());
+//        image.setImageResource(models.get(position).getImage());
         title.setText(models.get(position).getTitle());
-
+        Glide
+                .with(view)
+                .load(models.get(position).getImage())
+                .into(image);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

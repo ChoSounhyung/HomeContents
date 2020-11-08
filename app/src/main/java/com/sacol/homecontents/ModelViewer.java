@@ -29,6 +29,6 @@ public class ModelViewer extends RelativeLayout {
     }
 
     public void setItem(Model model) {
-        mypage_image.setImageResource(model.getImage());
+//        mypage_image.setImageResource(model.getImage());
     }
 }
