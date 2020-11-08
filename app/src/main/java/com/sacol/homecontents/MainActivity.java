@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout go_mystorage;
 
     private DatabaseReference databaseRefernece;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(goSearchPage);
         go_mypage.setOnClickListener(goMypage);
         go_mystorage.setOnClickListener(goStorage);
+
     }
 
     private void initDatabase() {
@@ -80,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
-                    models.add(new Model(R.drawable.sample1, (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue()));
-//                    showToast(homecontent.getKey());
+                    models.add(new Model(R.drawable.sample1, (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue(), homecontent.getKey()));
                 }
                 mainAdapter.notifyDataSetChanged();
 
@@ -94,10 +95,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    private void showToast(String str){
-        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+
+    private void showToast(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
-    private void startSignupActivity(){
+
+    private void startSignupActivity() {
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }

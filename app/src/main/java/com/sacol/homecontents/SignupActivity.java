@@ -63,6 +63,7 @@ public class SignupActivity extends AppCompatActivity {
         signup_login.setOnClickListener(goRealLoginPage);
 
     }
+
     View.OnClickListener goLoginPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -72,29 +73,30 @@ public class SignupActivity extends AppCompatActivity {
             final String passwordConfirm = ((TextInputEditText) findViewById(R.id.signUp_pwdConfirm)).getText().toString();
 
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+            if (password.equals(passwordConfirm)) {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if (password.equals(passwordConfirm)) {
                                 if (task.isSuccessful()) {
-                                    HashMap<Object,String> userDate = new HashMap<>();
-                                    userDate.put("uid",user.getUid());
-                                    userDate.put("email",email);
+                                    HashMap<Object, String> userDate = new HashMap<>();
+                                    userDate.put("uid", user.getUid());
+                                    userDate.put("email", email);
                                     userDate.put("name", name);
                                     mDatabase.child("users").child(user.getUid()).setValue(userDate);
                                     startLoginActivity();
 
                                 } else {
-                                    showToast("회원가입에 실패하셨습니다.");
+                                    showToast("가입된 이메일 입니다. 다시 확인해주세요");
                                 }
-                            } else {
-                                showToast("비밀번호를 확인해주세요.");
-                            }
-                        }
 
-                    });
+                            }
+
+                        });
+            } else {
+                showToast("비밀번호를 확인해주세요.");
+            }
 
         }
     };
@@ -106,11 +108,11 @@ public class SignupActivity extends AppCompatActivity {
         }
     };
 
-    private void showToast(String str){
-        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+    private void showToast(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
-    private void startLoginActivity(){
+    private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

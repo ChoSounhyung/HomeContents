@@ -9,7 +9,9 @@ public class Model {
     public Model(){
 
     }
-    public Model(int image, String title, String cont ,String date) {
+
+
+    public Model(int image, String title, String cont , String date) {
         this.image = image;
         this.title = title;
         this.cont = cont;
