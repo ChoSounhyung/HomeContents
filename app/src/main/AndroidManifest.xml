@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/hc_main_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".DetailActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,8 +27,8 @@
         <activity android:name=".MypageActivity" />
         <activity android:name=".PlusActivity" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".MystorageActivity"/>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".MystorageActivity" />
     </application>
 
 </manifest>
