@@ -37,6 +37,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView detail_title;
     private TextView detail_contents;
     private DatabaseReference databaseReference;
+    private TextView detail_nickname;
+    private String uid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +60,9 @@ public class DetailActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         models = new ArrayList<>();
         detailAdapter = new DetailAdapter(models, this);
-
         detail_contents =findViewById(R.id.detail_contents);
         detail_title = findViewById(R.id.detail_title);
+        detail_nickname = findViewById(R.id.detail_nickname);
     }
 
     public void setUp() {
@@ -76,12 +79,24 @@ public class DetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
                     models.add(new Model(homecontent.getValue().toString()));
-//                    showToast(homecontent.getValue().toString());
                 }
                 detail_contents.setText(snapshot.child("content").getValue().toString());
                 detail_title.setText(snapshot.child("title").getValue().toString());
 
+                showToast(String.valueOf(models.size()));
                 detailAdapter.notifyDataSetChanged();
+
+                databaseReference.child("users").child(snapshot.child("uid").getValue().toString()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        detail_nickname.setText(snapshot.child("name").getValue().toString());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
@@ -89,6 +104,7 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
     private void showToast(String str) {
@@ -107,6 +123,7 @@ public class DetailActivity extends AppCompatActivity {
             if (!flag) {
                 save.setImageResource(R.drawable.storage_filled_icon);
                 flag = true;
+
             } else {
                 save.setImageResource(R.drawable.storage_icon);
                 flag = false;
