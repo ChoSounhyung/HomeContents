@@ -1,8 +1,10 @@
 package com.sacol.homecontents;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -29,14 +31,15 @@ import java.util.ArrayList;
 public class MypageActivity extends AppCompatActivity {
     private ImageView mypage_logout;
     private ImageView mypage_back;
+    private ImageView mypage_edit;
     private TextView mypage_name;
     private TextView mypage_email;
     private GridView mypage_grid;
     private MypageAdapter mypageAdapter;
 
     private FirebaseAuth mAuth;
-    private  FirebaseFirestore db;
-    private  FirebaseUser user;
+    private FirebaseFirestore db;
+    private FirebaseUser user;
     private String uid;
 
     @Override
@@ -74,6 +77,7 @@ public class MypageActivity extends AppCompatActivity {
         mypage_logout = findViewById(R.id.mypage_logout);
         mypage_grid = findViewById(R.id.mypage_gridview);
         mypage_back = findViewById(R.id.mypage_back);
+        mypage_edit = findViewById(R.id.mypage_edit);
     }
 
     private  void userDate(){
@@ -96,14 +100,28 @@ public class MypageActivity extends AppCompatActivity {
     }
 
     private void setUp() {
-        mypage_logout.setOnClickListener(goSettingPage);
+        mypage_logout.setOnClickListener(logout);
         mypage_back.setOnClickListener(goBackPage);
     }
 
-    View.OnClickListener goSettingPage = new View.OnClickListener() {
+    View.OnClickListener logout = new View.OnClickListener() {
+
+
         @Override
         public void onClick(View view) {
-            startSettingActivity();
+            String message = "로그아웃 하시겠습니까?";
+            new AlertDialog.Builder(MypageActivity.this).setMessage(message).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // 로그아웃
+
+                }
+            }).setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(getApplicationContext(), "로그아웃 하지 않습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }).show();
         }
     };
 
