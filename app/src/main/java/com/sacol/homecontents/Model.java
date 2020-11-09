@@ -6,17 +6,12 @@ public class Model {
     private String cont;
     private String date;
 
-    public Model(){
-
-    }
-
     public Model(String image, String title, String cont , String date) {
         this.image = image;
         this.title = title;
         this.cont = cont;
         this.date = date;
     }
-
 
     public Model(String image) {
         this.image = image;
@@ -29,7 +24,6 @@ public class Model {
     public void setImage(String image) {
         this.image = image;
     }
-
 
     public String getTitle() {
         return title;

@@ -18,7 +18,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,9 +48,11 @@ public class PlusActivity extends AppCompatActivity {
     private ImageView cancel_btn;
     private TextView share_btn;
     private ImageView plus_gallery;
-    private ImageView plus_image;
+    private GridView plus_grid;
     private EditText plus_title;
     private EditText plus_contents;
+    private PlusAdapter plusAdapter;
+
     private Uri imguri;
     private FirebaseStorage storage;
     private StorageReference storageRef;
@@ -64,13 +70,16 @@ public class PlusActivity extends AppCompatActivity {
         init();
         setUp();
         checkSelfPermission();
+
+        plus_grid.setAdapter(plusAdapter);
+
     }
 
     public void init() {
         cancel_btn = findViewById(R.id.plus_cancel);
         share_btn = findViewById(R.id.plus_share);
         plus_gallery = findViewById(R.id.plus_gallery);
-        plus_image = findViewById(R.id.plus_image);
+        plus_grid = findViewById(R.id.plus_grid);
         plus_title = findViewById(R.id.plus_title);
         plus_contents = findViewById(R.id.plus_contents);
         storage = FirebaseStorage.getInstance();
@@ -213,5 +222,37 @@ public class PlusActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    class PlusAdapter extends BaseAdapter {
+        private ArrayList<Model> models = new ArrayList<Model>();
+
+        @Override
+        public int getCount() {
+            return models.size();
+        }
+
+        public void addItem(Model model) {
+            models.add(model);
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return models.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup viewGroup) {
+            ModelViewer modelViewer = new ModelViewer(getApplicationContext());
+            modelViewer.setItem(models.get(position));
+
+            return modelViewer;
+        }
+
     }
 }
