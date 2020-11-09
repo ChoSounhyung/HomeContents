@@ -114,7 +114,8 @@ public class MypageActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     // 로그아웃
-
+                    FirebaseAuth.getInstance().signOut();
+                    startLoginActivity();
                 }
             }).setPositiveButton("취소", new DialogInterface.OnClickListener() {
                 @Override
@@ -132,8 +133,8 @@ public class MypageActivity extends AppCompatActivity {
         }
     };
 
-    private void startSettingActivity(){
-        Intent intent = new Intent(this, SettingActivity.class);
+    private void startLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
