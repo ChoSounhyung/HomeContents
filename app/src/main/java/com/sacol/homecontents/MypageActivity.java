@@ -105,26 +105,31 @@ public class MypageActivity extends AppCompatActivity {
     }
 
     View.OnClickListener logout = new View.OnClickListener() {
-
-
         @Override
         public void onClick(View view) {
-            String message = "로그아웃 하시겠습니까?";
-            new AlertDialog.Builder(MypageActivity.this).setMessage(message).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    // 로그아웃
-                    FirebaseAuth.getInstance().signOut();
-                    startLoginActivity();
-                }
-            }).setPositiveButton("취소", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(getApplicationContext(), "로그아웃 하지 않습니다.", Toast.LENGTH_SHORT).show();
-                }
-            }).show();
+            // 경고 다이얼로그 띄우기
+            String msg = "로그아웃 하시겠습니까?";
+
+            new AlertDialog.Builder(MypageActivity.this)
+                    .setMessage(msg)
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FirebaseAuth.getInstance().signOut();
+                            startLoginActivity();
+                        }
+                    })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(getApplicationContext(), "로그아웃하지 않습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
+
         }
     };
+
+
 
     View.OnClickListener goBackPage = new View.OnClickListener() {
         @Override
