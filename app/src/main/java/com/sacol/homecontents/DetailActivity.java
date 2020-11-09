@@ -1,9 +1,11 @@
 package com.sacol.homecontents;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -43,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
     private String uid;
     private DatabaseReference mDatabase;
     private String key;
+    private ImageView detail_delete;
+    private ImageView detail_edit;
 
 
     @Override
@@ -70,7 +74,8 @@ public class DetailActivity extends AppCompatActivity {
         detail_nickname = findViewById(R.id.detail_nickname);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         uid = FirebaseAuth.getInstance().getUid().toString();
-
+        detail_delete = findViewById(R.id.detail_delete);
+        detail_edit = findViewById(R.id.detail_edit);
     }
 
     public void setUp() {
@@ -78,18 +83,23 @@ public class DetailActivity extends AppCompatActivity {
         viewPager.setPadding(0, 0, 0, 0);
         back.setOnClickListener(goBackPage);
         save.setOnClickListener(saveContent);
+        detail_delete.setOnClickListener(delete);
     }
 
     private void initDatabase() {
         databaseReference.child("contents").child(date).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot homecontent : snapshot.getChildren()) {
+                for (DataSnapshot homecontent : snapshot.child("ImgLink").getChildren()) {
                     models.add(new Model(homecontent.getValue().toString()));
                 }
                 detail_contents.setText(snapshot.child("content").getValue().toString());
                 detail_title.setText(snapshot.child("title").getValue().toString());
 
+                if(!uid.equals(snapshot.child("uid").getValue().toString())){
+                    detail_delete.setVisibility(View.GONE);
+                    detail_edit.setVisibility(View.GONE);
+                }
                 detailAdapter.notifyDataSetChanged();
                 databaseReference.child("users").child(snapshot.child("uid").getValue().toString()).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -142,6 +152,7 @@ public class DetailActivity extends AppCompatActivity {
             DetailActivity.this.finish();
         }
     };
+
     View.OnClickListener saveContent = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -153,9 +164,30 @@ public class DetailActivity extends AppCompatActivity {
             } else {
                 save.setImageResource(R.drawable.storage_icon);
                 mDatabase.child("save").child(uid).child(key).removeValue();
-
                 flag = false;
             }
+        }
+    };
+
+    View.OnClickListener delete = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            String message = "삭제 하시겠습니까?";
+            new AlertDialog.Builder(DetailActivity.this)
+                    .setMessage(message)
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mDatabase.child("contents").child(date).removeValue();
+                        }
+                    })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(getApplicationContext(), "삭제하지 않습니다", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
         }
     };
 }

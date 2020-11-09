@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,13 +75,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDatabase() {
-
-
         databaseRefernece.child("contents").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                models.clear();
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
-                    models.add(new Model( (String) homecontent.child("ImgLink").child("ImgLink0").getValue(), (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue(), homecontent.getKey()));
+                    models.add(new Model((String) homecontent.child("ImgLink").child("ImgLink0").getValue(), (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue(), homecontent.getKey()));
                 }
                 mainAdapter.notifyDataSetChanged();
 
@@ -94,10 +92,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void showToast(String str) {
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
     private void startSignupActivity() {

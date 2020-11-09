@@ -1,5 +1,6 @@
 package com.sacol.homecontents;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,6 +10,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 
@@ -16,26 +29,69 @@ public class MystorageActivity extends AppCompatActivity {
     private ImageView mystorage_back;
     private GridView mystorage_grid;
     private MystorageAdapter mystorageAdapter;
+    private DatabaseReference databaseRefernece;
+
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mystorage);
 
+        init();
+        setUp();
+        initDatabase();
+    }
+
+    private void init() {
         mystorage_back = findViewById(R.id.mystorage_back);
         mystorage_grid = findViewById(R.id.mystorage_gridview);
-
-        mystorage_back.setOnClickListener(goBackPage);
-
         mystorageAdapter = new MystorageAdapter();
-//        mystorageAdapter.addItem(new Model(R.drawable.sample1));
-//        mystorageAdapter.addItem(new Model(R.drawable.sample2));
-//        mystorageAdapter.addItem(new Model(R.drawable.sample3));
-//        mystorageAdapter.addItem(new Model(R.drawable.sample2));
-//        mystorageAdapter.addItem(new Model(R.drawable.sample4));
+        databaseRefernece = FirebaseDatabase.getInstance().getReference();
+        uid = FirebaseAuth.getInstance().getUid();
+    }
 
+    private void setUp() {
+        mystorage_back.setOnClickListener(goBackPage);
         mystorage_grid.setAdapter(mystorageAdapter);
     }
+
+    private void initDatabase() {
+
+        databaseRefernece.child("save").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot homecontent : snapshot.getChildren()) {
+                    databaseRefernece.child("contents").child(homecontent.getValue().toString()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            mystorageAdapter.addItem(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString()));
+                            showToast(snapshot.child("ImgLink").child("ImgLink0").getValue().toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+                mystorageAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void showToast(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
+    }
+
 
     View.OnClickListener goBackPage = new View.OnClickListener() {
         @Override
