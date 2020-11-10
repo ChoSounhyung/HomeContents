@@ -101,7 +101,7 @@ public class MypageActivity extends AppCompatActivity {
 
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
                     if (uid.equals(homecontent.child("uid").getValue().toString())) {
-                        mypageAdapter.addItem(new Model(homecontent.child("ImgLink").child("ImgLink0").getValue().toString(),homecontent.getKey()));
+                        mypageAdapter.addItem(new Model(homecontent.child("ImgLink").child("ImgLink0").getValue().toString(), homecontent.getKey()));
 
                     }
 
@@ -162,10 +162,6 @@ public class MypageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void showToast(String str) {
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
-    }
-
     class MypageAdapter extends BaseAdapter {
         private ArrayList<Model> models = new ArrayList<Model>();
 
@@ -174,6 +170,7 @@ public class MypageActivity extends AppCompatActivity {
         public MypageAdapter(Context context) {
             this.context = context;
         }
+
         @Override
         public int getCount() {
             return models.size();
@@ -198,12 +195,12 @@ public class MypageActivity extends AppCompatActivity {
             ModelViewer modelViewer = new ModelViewer(getApplicationContext());
             modelViewer.setItem(models.get(position));
 
-            modelViewer.setOnClickListener(new ModelViewer.OnClickListener(){
+            modelViewer.setOnClickListener(new ModelViewer.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("date" , models.get(position).getDate());
+                    intent.putExtra("date", models.get(position).getDate());
                     context.startActivity(intent);
                 }
             });

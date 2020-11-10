@@ -73,8 +73,7 @@ public class MystorageActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            mystorageAdapter.addItem(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString(),snapshot.getKey()));
-                            showToast(snapshot.child("ImgLink").child("ImgLink0").getValue().toString());
+                            mystorageAdapter.addItem(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString(), snapshot.getKey()));
                             mystorageAdapter.notifyDataSetChanged();
 
                         }
@@ -86,7 +85,6 @@ public class MystorageActivity extends AppCompatActivity {
                     });
 
                 }
-                mystorageAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -94,10 +92,6 @@ public class MystorageActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void showToast(String str) {
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
 
@@ -116,6 +110,7 @@ public class MystorageActivity extends AppCompatActivity {
         public MystorageAdapter(Context context) {
             this.context = context;
         }
+
         @Override
         public int getCount() {
             return models.size();
@@ -140,12 +135,12 @@ public class MystorageActivity extends AppCompatActivity {
             ModelViewer modelViewer = new ModelViewer(getApplicationContext());
             modelViewer.setItem(models.get(position));
 
-            modelViewer.setOnClickListener(new ModelViewer.OnClickListener(){
+            modelViewer.setOnClickListener(new ModelViewer.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("date" , models.get(position).getDate());
+                    intent.putExtra("date", models.get(position).getDate());
                     context.startActivity(intent);
                 }
             });

@@ -6,14 +6,14 @@ public class Model {
     private String cont;
     private String date;
 
-    public Model(String image, String title, String cont , String date) {
+    public Model(String image, String title, String cont, String date) {
         this.image = image;
         this.title = title;
         this.cont = cont;
         this.date = date;
     }
 
-    public Model(String image ,String date) {
+    public Model(String image, String date) {
 
         this.image = image;
         this.date = date;
@@ -43,7 +43,11 @@ public class Model {
         this.cont = cont;
     }
 
-    public String getDate(){ return  date;}
+    public String getDate() {
+        return date;
+    }
 
-    public void setDate(String date){ this.date = date;}
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

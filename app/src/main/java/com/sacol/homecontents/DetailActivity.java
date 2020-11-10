@@ -89,7 +89,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.child("ImgLink").getChildren()) {
-                    models.add(new Model(homecontent.getValue().toString(),homecontent.getKey()));
+                    models.add(new Model(homecontent.getValue().toString(), homecontent.getKey()));
                 }
 
                 detailAdapter.notifyDataSetChanged();
@@ -142,9 +142,6 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void showToast(String str) {
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
-    }
 
     View.OnClickListener goBackPage = new View.OnClickListener() {
         @Override
