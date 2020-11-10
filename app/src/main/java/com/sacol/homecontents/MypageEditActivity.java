@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EditActivity extends AppCompatActivity {
+public class MypageEditActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;
 
     private TextView edit_back;
@@ -27,7 +27,7 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        setContentView(R.layout.activity_mypage_edit);
 
         init();
         setUp();
@@ -57,7 +57,7 @@ public class EditActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             finish();
-            Toast.makeText(EditActivity.this, "수정 되었습니다", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MypageEditActivity.this, "수정 되었습니다", Toast.LENGTH_SHORT).show();
         }
     };
 
