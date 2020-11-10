@@ -53,8 +53,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-
         init();
         setUp();
         initDatabase();
@@ -69,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         models = new ArrayList<>();
         detailAdapter = new DetailAdapter(models, this);
-        detail_contents =findViewById(R.id.detail_contents);
+        detail_contents = findViewById(R.id.detail_contents);
         detail_title = findViewById(R.id.detail_title);
         detail_nickname = findViewById(R.id.detail_nickname);
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -91,16 +89,17 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.child("ImgLink").getChildren()) {
-                    models.add(new Model(homecontent.getValue().toString()));
+                    models.add(new Model(homecontent.getValue().toString(),homecontent.getKey()));
                 }
+
+                detailAdapter.notifyDataSetChanged();
                 detail_contents.setText(snapshot.child("content").getValue().toString());
                 detail_title.setText(snapshot.child("title").getValue().toString());
 
-                if(!uid.equals(snapshot.child("uid").getValue().toString())){
+                if (!uid.equals(snapshot.child("uid").getValue().toString())) {
                     detail_delete.setVisibility(View.GONE);
                     detail_edit.setVisibility(View.GONE);
                 }
-                detailAdapter.notifyDataSetChanged();
                 databaseReference.child("users").child(snapshot.child("uid").getValue().toString()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -125,7 +124,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
-                    if(date.equals(homecontent.getValue().toString())){
+                    if (date.equals(homecontent.getValue().toString())) {
                         save.setImageResource(R.drawable.storage_filled_icon);
                         flag = true;
                         key = homecontent.getKey();
@@ -142,6 +141,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
+
     private void showToast(String str) {
         Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }

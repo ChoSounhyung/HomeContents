@@ -45,7 +45,6 @@ public class DetailAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.detail_image_item, container, false);
         ImageView image;
         image = view.findViewById(R.id.detail_image);
-
         Glide
                 .with(view)
                 .load(models.get(position).getImage())

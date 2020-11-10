@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
@@ -76,7 +77,7 @@ public class MypageActivity extends AppCompatActivity {
         mypage_back = findViewById(R.id.mypage_back);
         mypage_edit = findViewById(R.id.mypage_edit);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        mypageAdapter = new MypageAdapter();
+        mypageAdapter = new MypageAdapter(this);
 
     }
 
@@ -168,6 +169,11 @@ public class MypageActivity extends AppCompatActivity {
     class MypageAdapter extends BaseAdapter {
         private ArrayList<Model> models = new ArrayList<Model>();
 
+        private Context context;
+
+        public MypageAdapter(Context context) {
+            this.context = context;
+        }
         @Override
         public int getCount() {
             return models.size();
@@ -188,9 +194,19 @@ public class MypageActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, ViewGroup viewGroup) {
             ModelViewer modelViewer = new ModelViewer(getApplicationContext());
             modelViewer.setItem(models.get(position));
+
+            modelViewer.setOnClickListener(new ModelViewer.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("date" , models.get(position).getDate());
+                    context.startActivity(intent);
+                }
+            });
 
             return modelViewer;
         }
