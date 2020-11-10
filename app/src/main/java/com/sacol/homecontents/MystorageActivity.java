@@ -3,6 +3,8 @@ package com.sacol.homecontents;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.view.View;
@@ -67,8 +69,10 @@ public class MystorageActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            mystorageAdapter.addItem(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString()));
+                            mystorageAdapter.addItem(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString(),snapshot.getKey()));
                             showToast(snapshot.child("ImgLink").child("ImgLink0").getValue().toString());
+                            mystorageAdapter.notifyDataSetChanged();
+
                         }
 
                         @Override
@@ -103,6 +107,7 @@ public class MystorageActivity extends AppCompatActivity {
     class MystorageAdapter extends BaseAdapter {
 
         private ArrayList<Model> models = new ArrayList<Model>();
+        private Context context;
 
         @Override
         public int getCount() {
@@ -124,9 +129,19 @@ public class MystorageActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup viewGroup) {
+        public View getView(final int position, View view, ViewGroup viewGroup) {
             ModelViewer modelViewer = new ModelViewer(getApplicationContext());
             modelViewer.setItem(models.get(position));
+
+
+//            modelViewer.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(context, DetailActivity.class);
+//                    intent.putExtra("date" , models.get(position).getDate());
+//                    context.startActivity(intent);
+//                }
+//            });
 
             return modelViewer;
         }

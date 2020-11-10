@@ -100,7 +100,7 @@ public class MypageActivity extends AppCompatActivity {
 
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
                     if (uid.equals(homecontent.child("uid").getValue().toString())) {
-                        mypageAdapter.addItem(new Model(homecontent.child("ImgLink").child("ImgLink0").getValue().toString()));
+                        mypageAdapter.addItem(new Model(homecontent.child("ImgLink").child("ImgLink0").getValue().toString(),homecontent.getKey()));
 
                     }
 

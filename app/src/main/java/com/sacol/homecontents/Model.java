@@ -13,8 +13,10 @@ public class Model {
         this.date = date;
     }
 
-    public Model(String image) {
+    public Model(String image ,String date) {
+
         this.image = image;
+        this.date = date;
     }
 
     public String getImage() {
