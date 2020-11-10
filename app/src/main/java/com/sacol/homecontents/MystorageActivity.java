@@ -7,13 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +29,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MystorageActivity extends AppCompatActivity {
     private ImageView mystorage_back;
@@ -48,7 +52,7 @@ public class MystorageActivity extends AppCompatActivity {
     private void init() {
         mystorage_back = findViewById(R.id.mystorage_back);
         mystorage_grid = findViewById(R.id.mystorage_gridview);
-        mystorageAdapter = new MystorageAdapter();
+        mystorageAdapter = new MystorageAdapter(this);
         databaseRefernece = FirebaseDatabase.getInstance().getReference();
         uid = FirebaseAuth.getInstance().getUid();
     }
@@ -109,6 +113,9 @@ public class MystorageActivity extends AppCompatActivity {
         private ArrayList<Model> models = new ArrayList<Model>();
         private Context context;
 
+        public MystorageAdapter(Context context) {
+            this.context = context;
+        }
         @Override
         public int getCount() {
             return models.size();
@@ -133,15 +140,16 @@ public class MystorageActivity extends AppCompatActivity {
             ModelViewer modelViewer = new ModelViewer(getApplicationContext());
             modelViewer.setItem(models.get(position));
 
+            modelViewer.setOnClickListener(new ModelViewer.OnClickListener(){
 
-//            modelViewer.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(context, DetailActivity.class);
-//                    intent.putExtra("date" , models.get(position).getDate());
-//                    context.startActivity(intent);
-//                }
-//            });
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("date" , models.get(position).getDate());
+                    context.startActivity(intent);
+                }
+            });
+
 
             return modelViewer;
         }
