@@ -7,19 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -121,7 +114,7 @@ public class MypageActivity extends AppCompatActivity {
         mypage_logout.setOnClickListener(logout);
         mypage_back.setOnClickListener(goBackPage);
         mypage_grid.setAdapter(mypageAdapter);
-
+        mypage_edit.setOnClickListener(goEditPage);
     }
 
     View.OnClickListener logout = new View.OnClickListener() {
@@ -149,11 +142,18 @@ public class MypageActivity extends AppCompatActivity {
         }
     };
 
-
     View.OnClickListener goBackPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             MypageActivity.this.finish();
+        }
+    };
+
+    View.OnClickListener goEditPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MypageActivity.this, MypageEditActivity.class);
+            startActivity(intent);
         }
     };
 
