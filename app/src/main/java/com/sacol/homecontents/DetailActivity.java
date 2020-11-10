@@ -82,6 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         back.setOnClickListener(goBackPage);
         save.setOnClickListener(saveContent);
         detail_delete.setOnClickListener(delete);
+        detail_edit.setOnClickListener(goEditPage);
     }
 
     private void initDatabase() {
@@ -185,6 +186,14 @@ public class DetailActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "삭제하지 않습니다", Toast.LENGTH_SHORT).show();
                         }
                     }).show();
+        }
+    };
+
+    View.OnClickListener goEditPage = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(DetailActivity.this, DetailEditActivity.class);
+            startActivity(intent);
         }
     };
 }
