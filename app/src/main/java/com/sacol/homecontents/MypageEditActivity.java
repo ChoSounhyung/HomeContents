@@ -1,6 +1,7 @@
 package com.sacol.homecontents;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,14 +9,31 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 public class MypageEditActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;
@@ -23,6 +41,12 @@ public class MypageEditActivity extends AppCompatActivity {
     private TextView edit_back;
     private TextView edit_completion;
     private ImageView edit_gallery;
+    private Uri imguri;
+    private EditText name;
+    private String uid;
+    private DatabaseReference databaseReference;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +62,27 @@ public class MypageEditActivity extends AppCompatActivity {
         edit_back = findViewById(R.id.edit_back);
         edit_completion = findViewById(R.id.edit_completion);
         edit_gallery = findViewById(R.id.edit_gallery);
+        name = findViewById(R.id.name);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        uid = FirebaseAuth.getInstance().getUid();
     }
 
     private void setUp() {
         edit_back.setOnClickListener(goBackPage);
         edit_completion.setOnClickListener(complete);
         edit_gallery.setOnClickListener(approach);
+        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                name.setText(snapshot.child("name").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     View.OnClickListener goBackPage = new View.OnClickListener() {
@@ -56,6 +95,27 @@ public class MypageEditActivity extends AppCompatActivity {
     View.OnClickListener complete = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+            final StorageReference imgRef = firebaseStorage.getReference("userImg/" + FirebaseAuth.getInstance().getUid() + "Img");
+            UploadTask uploadTask = imgRef.putFile(imguri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imgRef.getDownloadUrl().addOnSuccessListener(
+                            new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    mDatabase.child("users").child(uid).child("name").setValue( name.getText().toString());
+                                    mDatabase.child("users").child(uid).child("profileImg").setValue(uri.toString());
+                                }
+
+                            }
+
+                    );
+                }
+
+            });
+
             finish();
             Toast.makeText(MypageEditActivity.this, "수정 되었습니다", Toast.LENGTH_SHORT).show();
         }
@@ -72,6 +132,13 @@ public class MypageEditActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CODE);
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imguri = data.getData();
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
