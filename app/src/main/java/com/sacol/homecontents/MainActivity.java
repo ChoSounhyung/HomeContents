@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView search_btn;
     private RelativeLayout go_mypage;
     private RelativeLayout go_mystorage;
+    private ProgressDialog progressDialog;
 
     private DatabaseReference databaseRefernece;
 
@@ -103,9 +105,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(MainActivity.this, PlusActivity.class);
+
+            //Progress Dialog
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.show();
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(
+                    android.R.color.transparent
+            );
+
             startActivity(intent);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        //Dismiss Progress Dialog
+        progressDialog.dismiss();
+    }
 
     View.OnClickListener goSearchPage = new View.OnClickListener() {
         @Override
