@@ -25,7 +25,8 @@ public class ModelViewer extends RelativeLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.mypage_image_item, this, true);
 
-        mypage_image = findViewById(R.id.mypage_image);
+        mypage_image = findViewById(R.id.my_image);
+
     }
 
     public void setItem(Model model) {

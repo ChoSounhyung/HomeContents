@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,7 @@ public class MypageActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String uid;
+    private ImageView my_image;
 
     private DatabaseReference databaseReference;
 
@@ -69,6 +71,7 @@ public class MypageActivity extends AppCompatActivity {
         mypage_grid = findViewById(R.id.mypage_gridview);
         mypage_back = findViewById(R.id.mypage_back);
         mypage_edit = findViewById(R.id.mypage_edit);
+        my_image = findViewById(R.id.my_image);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mypageAdapter = new MypageAdapter(this);
 
@@ -108,6 +111,23 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
+        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child("profileImg").getValue()!=null){
+                    Glide
+                            .with(getApplicationContext())
+                            .load(snapshot.child("profileImg").getValue())
+                            .into(my_image);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void setUp() {
