@@ -74,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         detail_title = findViewById(R.id.detail_title);
         detail_nickname = findViewById(R.id.detail_nickname);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        uid = FirebaseAuth.getInstance().getUid().toString();
+        uid = FirebaseAuth.getInstance().getUid();
         detail_delete = findViewById(R.id.detail_delete);
         detail_edit = findViewById(R.id.detail_edit);
     }
@@ -203,6 +203,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(DetailActivity.this, DetailEditActivity.class);
+            intent.putExtra("date",date);
             startActivity(intent);
         }
     };
