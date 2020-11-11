@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +44,7 @@ public class MypageEditActivity extends AppCompatActivity {
     private TextView edit_back;
     private TextView edit_completion;
     private ImageView edit_gallery;
+    private ImageView edit_image;
     private Uri imguri;
     private EditText name;
     private String uid;
@@ -62,6 +66,7 @@ public class MypageEditActivity extends AppCompatActivity {
         edit_back = findViewById(R.id.edit_back);
         edit_completion = findViewById(R.id.edit_completion);
         edit_gallery = findViewById(R.id.edit_gallery);
+        edit_image = findViewById(R.id.edit_image);
         name = findViewById(R.id.name);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -76,6 +81,13 @@ public class MypageEditActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 name.setText(snapshot.child("name").getValue().toString());
+                if (snapshot.child("profileImg").getValue()!=null){
+                    Glide
+                            .with(getApplicationContext())
+                            .load(snapshot.child("profileImg").getValue())
+                            .into(edit_image);
+                }
+
             }
 
             @Override
@@ -137,6 +149,10 @@ public class MypageEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imguri = data.getData();
+        Glide
+                .with(getApplicationContext())
+                .load(imguri)
+                .into(edit_image);
 
     }
 
