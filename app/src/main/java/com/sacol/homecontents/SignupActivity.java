@@ -81,10 +81,11 @@ public class SignupActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     HashMap<Object, String> userDate = new HashMap<>();
-                                    userDate.put("uid", user.getUid());
+                                    userDate.put("uid", mAuth.getUid());
                                     userDate.put("email", email);
                                     userDate.put("name", name);
-                                    mDatabase.child("users").child(user.getUid()).setValue(userDate);
+                                    mDatabase.child("users").child(mAuth.getUid()).setValue(userDate);
+
                                     startLoginActivity();
 
                                 } else {
