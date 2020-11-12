@@ -13,17 +13,20 @@
         android:roundIcon="@mipmap/hc_main_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
-        <activity android:name=".DetailEditActivity"></activity>
-        <activity android:name=".MypageEditActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DetailEditActivity" />
+        <activity android:name=".MypageEditActivity" />
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MypageActivity" />
         <activity android:name=".PlusActivity" />
