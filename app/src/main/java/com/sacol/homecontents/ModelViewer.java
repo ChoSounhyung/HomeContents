@@ -6,17 +6,22 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+
 public class ModelViewer extends RelativeLayout {
     private ImageView mypage_image;
+    private String image;
 
-    public ModelViewer(Context context) {
+    public ModelViewer(Context context ,String image) {
         super(context);
 
+        this.image = image;
         init(context);
     }
 
-    public ModelViewer(Context context, AttributeSet attrs) {
+    public ModelViewer(Context context, AttributeSet attrs,String image) {
         super(context, attrs);
+        this.image = image;
 
         init(context);
     }
@@ -27,6 +32,10 @@ public class ModelViewer extends RelativeLayout {
 
         mypage_image = findViewById(R.id.my_image);
 
+        Glide
+                .with(context)
+                .load(image)
+                .into(mypage_image);
     }
 
     public void setItem(Model model) {

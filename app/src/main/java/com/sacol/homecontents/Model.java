@@ -19,6 +19,10 @@ public class Model {
         this.date = date;
     }
 
+    public Model(String image){
+        this.image = image;
+    }
+
     public String getImage() {
         return image;
     }

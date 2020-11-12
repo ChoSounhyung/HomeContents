@@ -70,7 +70,6 @@ public class PlusActivity extends AppCompatActivity {
         init();
         setUp();
         checkSelfPermission();
-
         plus_grid.setAdapter(plusAdapter);
 
     }
@@ -94,6 +93,8 @@ public class PlusActivity extends AppCompatActivity {
         cancel_btn.setOnClickListener(cancel);
         share_btn.setOnClickListener(share);
         plus_gallery.setOnClickListener(approach);
+
+
     }
 
     View.OnClickListener cancel = new View.OnClickListener() {
@@ -216,6 +217,8 @@ public class PlusActivity extends AppCompatActivity {
 
                 imguri = data.getClipData().getItemAt(currentImageSlect).getUri();
                 ImageList.add(imguri);
+
+//                plusAdapter.addItem(new Model(imguri.toString()));
                 currentImageSlect = currentImageSlect + 1;
             }
 
@@ -248,7 +251,7 @@ public class PlusActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
-            ModelViewer modelViewer = new ModelViewer(getApplicationContext());
+            ModelViewer modelViewer = new ModelViewer(getApplicationContext(),models.get(position).getImage());
             modelViewer.setItem(models.get(position));
 
             return modelViewer;

@@ -132,8 +132,9 @@ public class MystorageActivity extends AppCompatActivity {
 
         @Override
         public View getView(final int position, View view, ViewGroup viewGroup) {
-            ModelViewer modelViewer = new ModelViewer(getApplicationContext());
+            ModelViewer modelViewer = new ModelViewer(getApplicationContext(),models.get(position).getImage());
             modelViewer.setItem(models.get(position));
+
 
             modelViewer.setOnClickListener(new ModelViewer.OnClickListener() {
 
