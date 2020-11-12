@@ -50,7 +50,7 @@ public class MypageActivity extends AppCompatActivity {
         init();
         setUp();
         initDate();
-
+        mypage_grid.setAdapter(mypageAdapter);
     }
 
     @Override

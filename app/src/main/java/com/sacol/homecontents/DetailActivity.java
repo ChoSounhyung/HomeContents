@@ -56,6 +56,8 @@ public class DetailActivity extends AppCompatActivity {
         init();
         setUp();
         initDatabase();
+
+        viewPager.setAdapter(detailAdapter);
     }
 
     public void init() {
