@@ -96,6 +96,7 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
+
                     if (uid.equals(homecontent.child("uid").getValue().toString())) {
                         mypageAdapter.addItem(new Model(homecontent.child("ImgLink").child("ImgLink0").getValue().toString(), homecontent.getKey()));
 
@@ -115,10 +116,10 @@ public class MypageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("profileImg").getValue()!=null){
-                    Glide
-                            .with(getApplicationContext())
-                            .load(snapshot.child("profileImg").getValue())
-                            .into(my_image);
+//                    Glide
+//                            .with(getApplicationContext())
+//                            .load(snapshot.child("profileImg").getValue())
+//                            .into(my_image);
                 }
 
             }
