@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
     private String key;
     private ImageView detail_delete;
     private ImageView detail_edit;
+    private ImageView detail_user;
 
 
     @Override
@@ -66,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         back = findViewById(R.id.detail_back);
         save = findViewById(R.id.detail_storage);
+        detail_user = findViewById(R.id.detail_user);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         models = new ArrayList<>();
         detailAdapter = new DetailAdapter(models, this);
@@ -73,7 +76,7 @@ public class DetailActivity extends AppCompatActivity {
         detail_title = findViewById(R.id.detail_title);
         detail_nickname = findViewById(R.id.detail_nickname);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        uid = FirebaseAuth.getInstance().getUid().toString();
+        uid = FirebaseAuth.getInstance().getUid();
         detail_delete = findViewById(R.id.detail_delete);
         detail_edit = findViewById(R.id.detail_edit);
     }
@@ -107,6 +110,13 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         detail_nickname.setText(snapshot.child("name").getValue().toString());
+                        if (snapshot.child("profileImg").getValue()!=null){
+                            Glide
+                                    .with(getApplicationContext())
+                                    .load(snapshot.child("profileImg").getValue())
+                                    .into(detail_user);
+                        }
+
                     }
 
                     @Override
@@ -195,6 +205,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(DetailActivity.this, DetailEditActivity.class);
+            intent.putExtra("date",date);
             startActivity(intent);
         }
     };

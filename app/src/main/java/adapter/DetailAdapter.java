@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -14,7 +15,10 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.sacol.homecontents.DetailActivity;
 import com.sacol.homecontents.Model;
+import com.sacol.homecontents.MypageEditActivity;
 import com.sacol.homecontents.R;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -45,6 +49,7 @@ public class DetailAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.detail_image_item, container, false);
         ImageView image;
         image = view.findViewById(R.id.detail_image);
+
         Glide
                 .with(view)
                 .load(models.get(position).getImage())
