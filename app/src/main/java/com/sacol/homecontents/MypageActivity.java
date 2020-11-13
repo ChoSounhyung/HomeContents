@@ -116,10 +116,10 @@ public class MypageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("profileImg").getValue()!=null){
-//                    Glide
-//                            .with(getApplicationContext())
-//                            .load(snapshot.child("profileImg").getValue())
-//                            .into(my_image);
+                    Glide
+                            .with(getApplicationContext())
+                            .load(snapshot.child("profileImg").getValue())
+                            .into(my_image);
                 }
 
             }
