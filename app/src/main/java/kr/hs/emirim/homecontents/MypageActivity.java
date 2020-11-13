@@ -1,4 +1,4 @@
-package com.sacol.homecontents;
+package kr.hs.emirim.homecontents;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sacol.homecontents.R;
 
 import java.util.ArrayList;
 

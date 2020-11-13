@@ -1,4 +1,4 @@
-package com.sacol.homecontents;
+package kr.hs.emirim.homecontents;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.sacol.homecontents.R;
 
 public class SettingActivity extends AppCompatActivity {
 

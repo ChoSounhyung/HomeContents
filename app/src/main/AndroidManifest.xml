@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/hc_main_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
-        <activity android:name=".SplashActivity"
+        <activity android:name="kr.hs.emirim.homecontents.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -22,17 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailEditActivity" />
-        <activity android:name=".MypageEditActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MypageActivity" />
-        <activity android:name=".PlusActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".MystorageActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.DetailEditActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.MypageEditActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.DetailActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.SettingActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.MainActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.LoginActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.MypageActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.PlusActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.SignupActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.SearchActivity" />
+        <activity android:name="kr.hs.emirim.homecontents.MystorageActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.sacol.homecontents;
+package kr.hs.emirim.homecontents;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sacol.homecontents.R;
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;

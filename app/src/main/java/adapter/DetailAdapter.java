@@ -1,24 +1,19 @@
 package adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.sacol.homecontents.DetailActivity;
-import com.sacol.homecontents.Model;
-import com.sacol.homecontents.MypageEditActivity;
-import com.sacol.homecontents.R;
 
-import org.w3c.dom.Text;
+import kr.hs.emirim.homecontents.Model;
+
+import com.sacol.homecontents.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.sacol.homecontents;
+package kr.hs.emirim.homecontents;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sacol.homecontents.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,12 +117,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
-
-    @Override
-    public void onBackPressed() {
-        //Dismiss Progress Dialog
-        progressDialog.dismiss();
-    }
 
     View.OnClickListener goSearchPage = new View.OnClickListener() {
         @Override

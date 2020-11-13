@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.sacol.homecontents"
+        applicationId "kr.hs.emirim.homecontents"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 2

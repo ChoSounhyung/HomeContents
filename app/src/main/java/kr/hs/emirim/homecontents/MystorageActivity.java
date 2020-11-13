@@ -1,4 +1,4 @@
-package com.sacol.homecontents;
+package kr.hs.emirim.homecontents;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,27 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.sacol.homecontents.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +28,7 @@ public class MystorageActivity extends AppCompatActivity {
     private GridView mystorage_grid;
     private MystorageAdapter mystorageAdapter;
     private DatabaseReference databaseRefernece;
+    private List<Model> models;
 
     private String uid;
 
@@ -52,7 +45,8 @@ public class MystorageActivity extends AppCompatActivity {
     private void init() {
         mystorage_back = findViewById(R.id.mystorage_back);
         mystorage_grid = findViewById(R.id.mystorage_gridview);
-        mystorageAdapter = new MystorageAdapter(this);
+        models = new ArrayList<>();
+        mystorageAdapter = new MystorageAdapter(models,this);
         databaseRefernece = FirebaseDatabase.getInstance().getReference();
         uid = FirebaseAuth.getInstance().getUid();
     }
@@ -67,15 +61,14 @@ public class MystorageActivity extends AppCompatActivity {
         databaseRefernece.child("save").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
+                    models.clear();
+
                     databaseRefernece.child("contents").child(homecontent.getValue().toString()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            mystorageAdapter.addItem(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString(), snapshot.getKey()));
+                            models.add(new Model(snapshot.child("ImgLink").child("ImgLink0").getValue().toString(), snapshot.getKey()));
                             mystorageAdapter.notifyDataSetChanged();
-
                         }
 
                         @Override
@@ -104,10 +97,11 @@ public class MystorageActivity extends AppCompatActivity {
 
     class MystorageAdapter extends BaseAdapter {
 
-        private ArrayList<Model> models = new ArrayList<Model>();
+        private List<Model> models = new ArrayList<Model>();
         private Context context;
 
-        public MystorageAdapter(Context context) {
+        public MystorageAdapter(List<Model> model,Context context) {
+            this.models = model;
             this.context = context;
         }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MystorageActivity">
+    tools:context="kr.hs.emirim.homecontents.MystorageActivity">
 
     <ImageView
         android:id="@+id/mystorage_back"

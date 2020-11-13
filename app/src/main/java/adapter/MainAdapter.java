@@ -12,9 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.sacol.homecontents.DetailActivity;
-import com.sacol.homecontents.MainActivity;
-import com.sacol.homecontents.Model;
+import kr.hs.emirim.homecontents.DetailActivity;
+import kr.hs.emirim.homecontents.Model;
 import com.sacol.homecontents.R;
 
 import java.util.List;
