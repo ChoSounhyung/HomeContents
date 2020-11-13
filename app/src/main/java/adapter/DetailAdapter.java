@@ -20,16 +20,21 @@ import com.sacol.homecontents.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailAdapter extends PagerAdapter {
-    private List<Model> models;
+    private List<Model> models =new ArrayList<Model>();;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public DetailAdapter(List<Model> models, Context context) {
+    public DetailAdapter(List models, Context context) {
         this.models = models;
         this.context = context;
+    }
+
+    public void addItem(Model model) {
+        models.add(model);
     }
 
     @Override
@@ -54,6 +59,7 @@ public class DetailAdapter extends PagerAdapter {
                 .with(view)
                 .load(models.get(position).getImage())
                 .into(image);
+
 
         container.addView(view, 0);
 

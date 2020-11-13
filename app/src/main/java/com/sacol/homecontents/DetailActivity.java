@@ -59,19 +59,16 @@ public class DetailActivity extends AppCompatActivity {
         setUp();
         initDatabase();
 
-        viewPager.setAdapter(detailAdapter);
     }
 
     public void init() {
         Intent intent = getIntent();
         date = intent.getExtras().getString("date");
-        viewPager = findViewById(R.id.viewPager);
         back = findViewById(R.id.detail_back);
         save = findViewById(R.id.detail_storage);
         detail_user = findViewById(R.id.detail_user);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        models = new ArrayList<>();
-        detailAdapter = new DetailAdapter(models, this);
+
         detail_contents = findViewById(R.id.detail_contents);
         detail_title = findViewById(R.id.detail_title);
         detail_nickname = findViewById(R.id.detail_nickname);
@@ -79,6 +76,11 @@ public class DetailActivity extends AppCompatActivity {
         uid = FirebaseAuth.getInstance().getUid();
         detail_delete = findViewById(R.id.detail_delete);
         detail_edit = findViewById(R.id.detail_edit);
+
+        viewPager = findViewById(R.id.viewPager);
+        models = new ArrayList<>();
+        detailAdapter = new DetailAdapter(models,this);
+
     }
 
     public void setUp() {
@@ -90,15 +92,20 @@ public class DetailActivity extends AppCompatActivity {
         detail_edit.setOnClickListener(goEditPage);
     }
 
+    private void showToast(String str){
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+    }
+
     private void initDatabase() {
         databaseReference.child("contents").child(date).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                models.clear();
                 for (DataSnapshot homecontent : snapshot.child("ImgLink").getChildren()) {
-                    models.add(new Model(homecontent.getValue().toString(), homecontent.getKey()));
+                   models.add(new Model(homecontent.getValue().toString(),homecontent.getKey()));
                 }
-
                 detailAdapter.notifyDataSetChanged();
+
                 detail_contents.setText(snapshot.child("content").getValue().toString());
                 detail_title.setText(snapshot.child("title").getValue().toString());
 
