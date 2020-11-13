@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -41,6 +42,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+
+import adapter.MainAdapter;
 
 public class PlusActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;
@@ -59,6 +63,7 @@ public class PlusActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private int i;
     private ArrayList ImageList;
+    private ArrayList models;
     private ArrayList urlStrings;
     private String filename;
 
@@ -70,7 +75,6 @@ public class PlusActivity extends AppCompatActivity {
         init();
         setUp();
         checkSelfPermission();
-        plus_grid.setAdapter(plusAdapter);
 
     }
 
@@ -85,7 +89,11 @@ public class PlusActivity extends AppCompatActivity {
         storageRef = storage.getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         ImageList = new ArrayList();
+        models = new ArrayList<>();
         urlStrings = new ArrayList();
+        plusAdapter = new PlusAdapter(models,this);
+        plus_grid.setAdapter(plusAdapter);
+
     }
 
 
@@ -217,18 +225,29 @@ public class PlusActivity extends AppCompatActivity {
 
                 imguri = data.getClipData().getItemAt(currentImageSlect).getUri();
                 ImageList.add(imguri);
-
-//                plusAdapter.addItem(new Model(imguri.toString()));
+                models.add(new Model(imguri.toString()));
                 currentImageSlect = currentImageSlect + 1;
-            }
 
+            }
+            plusAdapter.notifyDataSetChanged();
+            showToast(String.valueOf(plusAdapter.getCount()));
         } else {
             Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void showToast(String str){
+        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
     }
 
     class PlusAdapter extends BaseAdapter {
         private ArrayList<Model> models = new ArrayList<Model>();
+
+        public PlusAdapter(ArrayList<Model> models, Context context) {
+            this.models = models;
+
+        }
 
         @Override
         public int getCount() {

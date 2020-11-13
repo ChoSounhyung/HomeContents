@@ -77,7 +77,6 @@
         android:src="@drawable/sample1"
         android:stretchMode="columnWidth"
         android:verticalSpacing="2dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plus_gallery" />
