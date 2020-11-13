@@ -14,9 +14,11 @@ public class Model {
     }
 
     public Model(String image, String date) {
-
         this.image = image;
         this.date = date;
+    }
+    public Model(){
+
     }
 
     public Model(String image){
