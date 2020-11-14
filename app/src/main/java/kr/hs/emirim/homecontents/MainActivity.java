@@ -2,6 +2,7 @@ package kr.hs.emirim.homecontents;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.sacol.homecontents.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import adapter.MainAdapter;
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(goSearchPage);
         go_mypage.setOnClickListener(goMypage);
         go_mystorage.setOnClickListener(goStorage);
-
     }
 
     private void initDatabase() {
@@ -84,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
                     models.add(new Model((String) homecontent.child("ImgLink").child("ImgLink0").getValue(), (String) homecontent.child("title").getValue(), (String) homecontent.child("content").getValue(), homecontent.getKey()));
                 }
+                Collections.reverse(models);
                 mainAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -94,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        ActivityCompat.finishAffinity(this);
     }
 
     private void startSignupActivity() {

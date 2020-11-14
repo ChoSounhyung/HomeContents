@@ -72,32 +72,33 @@ public class SignupActivity extends AppCompatActivity {
             final String passwordConfirm = ((TextInputEditText) findViewById(R.id.signUp_pwdConfirm)).getText().toString();
 
 
-            if (password.equals(passwordConfirm)) {
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+            if (name.length()==0|| email.length()==0|| password.length()==0||passwordConfirm.length()==0){
+                if (password.equals(passwordConfirm)) {
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if (task.isSuccessful()) {
-                                    HashMap<Object, String> userDate = new HashMap<>();
-                                    userDate.put("uid", mAuth.getUid());
-                                    userDate.put("email", email);
-                                    userDate.put("name", name);
-                                    mDatabase.child("users").child(mAuth.getUid()).setValue(userDate);
+                                    if (task.isSuccessful()) {
+                                        HashMap<Object, String> userDate = new HashMap<>();
+                                        userDate.put("uid", mAuth.getUid());
+                                        userDate.put("email", email);
+                                        userDate.put("name", name);
+                                        mDatabase.child("users").child(mAuth.getUid()).setValue(userDate);
 
-                                    startLoginActivity();
+                                        startLoginActivity();
 
-                                } else {
-                                    showToast("가입된 이메일 입니다. 다시 확인해주세요");
+                                    } else {
+                                        showToast("회원가입에 실패했습니다.");
+                                    }
+
                                 }
 
-                            }
-
-                        });
-            } else {
-                showToast("비밀번호를 확인해주세요.");
+                            });
+                } else {
+                    showToast("비밀번호를 확인해주세요.");
+                }
             }
-
         }
     };
 
