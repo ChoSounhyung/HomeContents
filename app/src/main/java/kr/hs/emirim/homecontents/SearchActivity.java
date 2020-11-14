@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
-    private TextView cancel_btn;
+    private ImageView search_btn;
+    private ImageView back_btn;
     private ListView list;
     private DatabaseReference databaseReference;
     private List<Model> models;
@@ -49,7 +50,8 @@ public class SearchActivity extends AppCompatActivity {
     public void init() {
         models = new ArrayList<>();
         searchModel = new ArrayList<>();
-        cancel_btn = findViewById(R.id.search_cancel);
+        search_btn = findViewById(R.id.search_search);
+        back_btn = findViewById(R.id.search_back);
         search_edittext = findViewById(R.id.search_edittext);
         list = findViewById(R.id.search_list);
         adapter = new SearchAdater(this, searchModel);
@@ -59,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    cancel_btn.performClick();
+                    search_btn.performClick();
                     return true;
                 }
                 return false;
@@ -86,15 +88,22 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void setUp() {
-        cancel_btn.setOnClickListener(goBackPage);
+        search_btn.setOnClickListener(search);
+        back_btn.setOnClickListener(goBackPage);
     }
 
+
+    View.OnClickListener search = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            searchDate(search_edittext.getText().toString());
+        }
+    };
 
     View.OnClickListener goBackPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            searchDate(search_edittext.getText().toString());
-
+            finish();
         }
     };
 
@@ -104,7 +113,6 @@ public class SearchActivity extends AppCompatActivity {
             if (models.get(i).getTitle().contains(search)) {
                 searchModel.add(models.get(i));
             }
-
         }
         adapter.notifyDataSetChanged();
     }
