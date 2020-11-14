@@ -65,6 +65,8 @@
         android:id="@+id/search_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:dividerHeight="0px"
+        android:divider="#ffffff"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
