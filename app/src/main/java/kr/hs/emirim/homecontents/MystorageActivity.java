@@ -62,6 +62,7 @@ public class MystorageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot homecontent : snapshot.getChildren()) {
+
                     models.clear();
 
                     databaseRefernece.child("contents").child(homecontent.getValue().toString()).addValueEventListener(new ValueEventListener() {

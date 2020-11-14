@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -83,7 +84,7 @@ public class PlusActivity extends AppCompatActivity {
         ImageList = new ArrayList();
         models = new ArrayList<>();
         urlStrings = new ArrayList();
-        plusAdapter = new PlusAdapter(models,this);
+        plusAdapter = new PlusAdapter(models, this);
         plus_grid.setAdapter(plusAdapter);
 
     }
@@ -110,50 +111,60 @@ public class PlusActivity extends AppCompatActivity {
         public void onClick(View view) {
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
-            for (i = 0; i < ImageList.size(); i++) {
-                imguri = (Uri) ImageList.get(i);
-                filename = System.currentTimeMillis() + FirebaseAuth.getInstance().getUid() + i + "content.png";
-                final StorageReference imgRef = firebaseStorage.getReference("contentsImg/" + filename);
-                UploadTask uploadTask = imgRef.putFile(imguri);
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        imgRef.getDownloadUrl().addOnSuccessListener(
-                                new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        urlStrings.add(String.valueOf(uri));
-                                        if (urlStrings.size() == ImageList.size()) {
-                                            HashMap<String, String> imghashMap = new HashMap<>();
+            if (ImageList.size() != 0) {
+                for (i = 0; i < ImageList.size(); i++) {
+                    imguri = (Uri) ImageList.get(i);
+                    filename = System.currentTimeMillis() + FirebaseAuth.getInstance().getUid() + i + "content.png";
+                    final StorageReference imgRef = firebaseStorage.getReference("contentsImg/" + filename);
+                    UploadTask uploadTask = imgRef.putFile(imguri);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            imgRef.getDownloadUrl().addOnSuccessListener(
+                                    new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            urlStrings.add(String.valueOf(uri));
+                                            if (urlStrings.size() == ImageList.size()) {
+                                                HashMap<String, String> imghashMap = new HashMap<>();
 
-                                            for (int i = 0; i < urlStrings.size(); i++) {
-                                                imghashMap.put("ImgLink" + i, (String) urlStrings.get(i));
+                                                for (int i = 0; i < urlStrings.size(); i++) {
+                                                    imghashMap.put("ImgLink" + i, (String) urlStrings.get(i));
+
+                                                }
+                                                HashMap<Object, Object> contents = new HashMap<>();
+                                                SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
+
+                                                Date time = new Date();
+
+                                                String now = format1.format(time);
+                                                contents.put("uid", FirebaseAuth.getInstance().getUid());
+                                                contents.put("current_date", now);
+                                                contents.put("title", plus_title.getText().toString());
+                                                contents.put("content", plus_contents.getText().toString());
+                                                contents.put("ImgLink", imghashMap);
+                                                mDatabase.child("contents").push().setValue(contents);
+                                                Toast.makeText(PlusActivity.this, "컨텐츠가 공유되었습니다", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(PlusActivity.this, MainActivity.class);
+                                                startActivity(intent);
 
                                             }
-                                            HashMap<Object, Object> contents = new HashMap<>();
-                                            SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
 
-                                            Date time = new Date();
-
-                                            String now = format1.format(time);
-                                            contents.put("uid", FirebaseAuth.getInstance().getUid());
-                                            contents.put("current_date", now);
-                                            contents.put("title", plus_title.getText().toString());
-                                            contents.put("content", plus_contents.getText().toString());
-                                            contents.put("ImgLink", imghashMap);
-                                            mDatabase.child("contents").push().setValue(contents);
                                         }
 
+
                                     }
-                                }
-                        );
-                    }
-                });
+
+                            );
+                        }
+                    });
+
+                }
+            } else {
+                Toast.makeText(PlusActivity.this, "사진도 넣어주세요", Toast.LENGTH_SHORT).show();
             }
 
-            Intent intent = new Intent(PlusActivity.this, MainActivity.class);
-            startActivity(intent);
-            Toast.makeText(PlusActivity.this, "컨텐츠가 공유되었습니다", Toast.LENGTH_SHORT).show();
+
         }
     };
 
@@ -229,8 +240,8 @@ public class PlusActivity extends AppCompatActivity {
 
     }
 
-    private void showToast(String str){
-        Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
+    private void showToast(String str) {
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
     class PlusAdapter extends BaseAdapter {
@@ -262,7 +273,7 @@ public class PlusActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
-            ModelViewer modelViewer = new ModelViewer(getApplicationContext(),models.get(position).getImage());
+            ModelViewer modelViewer = new ModelViewer(getApplicationContext(), models.get(position).getImage());
             modelViewer.setItem(models.get(position));
 
             return modelViewer;
