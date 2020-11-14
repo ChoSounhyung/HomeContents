@@ -194,6 +194,7 @@ public class DetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             mDatabase.child("contents").child(date).removeValue();
+                            finish();
                         }
                     })
                     .setNegativeButton("취소", new DialogInterface.OnClickListener() {
