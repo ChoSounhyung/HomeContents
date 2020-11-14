@@ -27,6 +27,8 @@ import com.sacol.homecontents.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapter.SearchAdapter;
+
 public class SearchActivity extends AppCompatActivity {
     private ImageView search_btn;
     private ImageView back_btn;
@@ -35,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     private List<Model> models;
     private List<Model> searchModel;
     private EditText search_edittext;
-    private SearchAdater adapter;
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class SearchActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.search_back);
         search_edittext = findViewById(R.id.search_edittext);
         list = findViewById(R.id.search_list);
-        adapter = new SearchAdater(this, searchModel);
+        adapter = new SearchAdapter(this, searchModel);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         list.setAdapter(adapter);
         search_edittext.setOnKeyListener(new View.OnKeyListener() {
@@ -117,75 +119,4 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-}
-
-class SearchAdater extends BaseAdapter {
-    private List<Model> models = new ArrayList<>();
-    private Context context;
-
-    public SearchAdater() {
-    }
-
-    public SearchAdater(Context context, List<Model> model) {
-        this.context = context;
-        this.models = model;
-
-    }
-
-    @Override
-    public int getCount() {
-        return models.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return models.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        final int pos = i;
-        final Context context = viewGroup.getContext();
-
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.search_item, viewGroup, false);
-
-        }
-
-        TextView search_title = view.findViewById(R.id.search_title);
-        TextView search_content = view.findViewById(R.id.search_content);
-        ImageView search_image = view.findViewById(R.id.search_image);
-        search_content.setText(models.get(pos).getCont());
-        search_title.setText(models.get(pos).getTitle());
-
-        Glide
-                .with(view)
-                .load(models.get(pos).getImage())
-                .into(search_image);
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("date", models.get(pos).getDate());
-                context.startActivity(intent);
-            }
-        });
-
-        return view;
-    }
-
-    public void addItem(String title, String cont) {
-        Model m = new Model();
-        m.setTitle(title);
-        m.setCont(cont);
-
-        models.add(m);
-    }
 }

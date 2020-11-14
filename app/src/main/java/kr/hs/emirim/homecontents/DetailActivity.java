@@ -103,7 +103,6 @@ public class DetailActivity extends AppCompatActivity {
                    models.add(new Model(homecontent.getValue().toString(),homecontent.getKey()));
                 }
                 detailAdapter.notifyDataSetChanged();
-
                 detail_contents.setText(snapshot.child("content").getValue().toString());
                 detail_title.setText(snapshot.child("title").getValue().toString());
 
