@@ -110,8 +110,6 @@ public class PlusActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-
-            if (ImageList.size() != 0) {
                 for (i = 0; i < ImageList.size(); i++) {
                     imguri = (Uri) ImageList.get(i);
                     filename = System.currentTimeMillis() + FirebaseAuth.getInstance().getUid() + i + "content.png";
@@ -125,6 +123,7 @@ public class PlusActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Uri uri) {
                                             urlStrings.add(String.valueOf(uri));
+
                                             if (urlStrings.size() == ImageList.size()) {
                                                 HashMap<String, String> imghashMap = new HashMap<>();
 
@@ -145,8 +144,7 @@ public class PlusActivity extends AppCompatActivity {
                                                 contents.put("ImgLink", imghashMap);
                                                 mDatabase.child("contents").push().setValue(contents);
                                                 Toast.makeText(PlusActivity.this, "컨텐츠가 공유되었습니다", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(PlusActivity.this, MainActivity.class);
-                                                startActivity(intent);
+                                                finish();
 
                                             }
 
@@ -160,9 +158,7 @@ public class PlusActivity extends AppCompatActivity {
                     });
 
                 }
-            } else {
-                Toast.makeText(PlusActivity.this, "사진도 넣어주세요", Toast.LENGTH_SHORT).show();
-            }
+
 
 
         }
@@ -233,16 +229,12 @@ public class PlusActivity extends AppCompatActivity {
 
             }
             plusAdapter.notifyDataSetChanged();
-            showToast(String.valueOf(plusAdapter.getCount()));
         } else {
             //Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void showToast(String str) {
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
-    }
 
     class PlusAdapter extends BaseAdapter {
         private ArrayList<Model> models = new ArrayList<Model>();
