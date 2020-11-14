@@ -111,15 +111,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(MainActivity.this, PlusActivity.class);
-
-            //Progress Dialog
-            progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.show();
-            progressDialog.setContentView(R.layout.progress_dialog);
-            progressDialog.getWindow().setBackgroundDrawableResource(
-                    android.R.color.transparent
-            );
-
             startActivity(intent);
         }
     };

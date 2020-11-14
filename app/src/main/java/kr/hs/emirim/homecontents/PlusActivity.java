@@ -201,7 +201,7 @@ public class PlusActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
         } else {
             //모두 허용 상태
-            Toast.makeText(this, "권한을 모두 허용하셨습니다.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "권한을 모두 허용하셨습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -224,7 +224,7 @@ public class PlusActivity extends AppCompatActivity {
             plusAdapter.notifyDataSetChanged();
             showToast(String.valueOf(plusAdapter.getCount()));
         } else {
-            Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Please Select Multiple Images", Toast.LENGTH_SHORT).show();
         }
 
     }
