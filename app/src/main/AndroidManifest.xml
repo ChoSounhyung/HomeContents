@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/hc_main_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.StatusBar">
-        <activity android:name="kr.hs.emirim.homecontents.SplashActivity"
+        <activity android:name="kr.hs.emirim.homecontents.Personalinfo"></activity>
+        <activity android:name="kr.hs.emirim.homecontents.PersonalInfo" />
+        <activity
+            android:name="kr.hs.emirim.homecontents.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
