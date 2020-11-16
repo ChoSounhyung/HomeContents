@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,14 +29,13 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatabaseReference mDatabase;
+    private CheckBox personalinfo_checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         init();
 
         setUp();
@@ -46,9 +46,14 @@ public class SignupActivity extends AppCompatActivity {
         super.onStart();
     }
 
+
     private void init() {
         signup_btn = findViewById(R.id.signup_btn);
         signup_login = findViewById(R.id.signup_login);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        personalinfo_checkbox = findViewById(R.id.personalinfo_checkbox);
     }
 
     private void setUp() {
@@ -65,33 +70,30 @@ public class SignupActivity extends AppCompatActivity {
             final String password = ((TextInputEditText) findViewById(R.id.signUp_pwd)).getText().toString();
             final String passwordConfirm = ((TextInputEditText) findViewById(R.id.signUp_pwdConfirm)).getText().toString();
 
-
-            if (name.length()==0|| email.length()==0|| password.length()==0||passwordConfirm.length()==0){
+            if (personalinfo_checkbox.isChecked()) {
                 if (password.equals(passwordConfirm)) {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-
                                     if (task.isSuccessful()) {
                                         HashMap<Object, String> userDate = new HashMap<>();
                                         userDate.put("uid", mAuth.getUid());
                                         userDate.put("email", email);
                                         userDate.put("name", name);
                                         mDatabase.child("users").child(mAuth.getUid()).setValue(userDate);
-
                                         startLoginActivity();
-
                                     } else {
-                                        showToast("회원가입에 실패했습니다.");
+                                        showToast("가입된 이메일 입니다. 다시 확인해주세요");
                                     }
-
                                 }
-
                             });
                 } else {
                     showToast("비밀번호를 확인해주세요.");
+
                 }
+            }else{
+                showToast("개인정보를 확인해주세요");
             }
         }
     };
@@ -106,7 +108,6 @@ public class SignupActivity extends AppCompatActivity {
     private void showToast(String str) {
         Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
-
 
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);

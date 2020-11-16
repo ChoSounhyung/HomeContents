@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kr.hs.emirim.homecontents.SignupActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="kr.hs.emirim.homecontents.SignupActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="SIGN UP"
-        android:layout_marginTop="30dp"
         android:textSize="23sp" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginLeft="23dp"
-        android:layout_marginRight="23dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="23dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -97,22 +97,52 @@
                 android:inputType="textPassword"
                 android:shadowColor="#FFFFFF" />
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="개인정보동의" />
+
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/personalinfo_scroll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/n_n_n_n_n_n_n_n_n_n_n_n_n_n_n_n_n_1_n_n_n_n_5_5_n_n_n_n_n_n_n_n_n_chosounhyung_gmail_com_n_n_n_n_7_n_29_n_1" />
+            </LinearLayout>
+        </ScrollView>
+
+        <CheckBox
+            android:id="@+id/personalinfo_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="위 내용에 동의합니다" />
     </LinearLayout>
 
-        <Button
-            android:id="@+id/signup_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_signup_btn"
-            android:text="SIGN UP"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="120dp"
-            android:layout_marginRight="120dp"/>
+    <Button
+        android:id="@+id/signup_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="120dp"
+        android:background="@drawable/login_signup_btn"
+        android:text="SIGN UP"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
     <View
         android:layout_width="match_parent"

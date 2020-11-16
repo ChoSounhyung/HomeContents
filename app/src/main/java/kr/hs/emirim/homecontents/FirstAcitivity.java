@@ -52,7 +52,7 @@ public class FirstAcitivity extends AppCompatActivity {
     };
 
     private void startSignUpActivity(){
-        Intent intent = new Intent(this, Personalinfo.class);
+        Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
     private void startLoginActivity(){
