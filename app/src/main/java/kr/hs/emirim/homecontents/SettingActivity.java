@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.sacol.homecontents.R;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -40,12 +39,12 @@ public class SettingActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             FirebaseAuth.getInstance().signOut();
-            startSignUpActivity();
+            startFirstActivity();
         }
     };
 
-    private void startSignUpActivity(){
-        Intent intent = new Intent(this, SignupActivity.class);
+    private void startFirstActivity(){
+        Intent intent = new Intent(this, FirstAcitivity.class);
         startActivity(intent);
     }
 }

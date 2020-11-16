@@ -31,7 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.sacol.homecontents.R;
 
 public class MypageEditActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;

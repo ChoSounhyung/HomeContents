@@ -78,14 +78,6 @@
         android:layout_marginLeft="110dp"
         android:layout_marginRight="110dp"/>
 
-    <TextView
-        android:id="@+id/login_find_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="비밀번호 찾기"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textColor="#405FF2"/>
 
     <View
         android:layout_width="match_parent"

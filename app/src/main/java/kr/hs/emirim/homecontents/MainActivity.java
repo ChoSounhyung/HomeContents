@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sacol.homecontents.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView search_btn;
     private RelativeLayout go_mypage;
     private RelativeLayout go_mystorage;
-    private ProgressDialog progressDialog;
 
     private DatabaseReference databaseRefernece;
 
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Firebase
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            startSignupActivity();
+            startFirstActivity();
         }
 
         init();
@@ -102,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.finishAffinity(this);
     }
 
-    private void startSignupActivity() {
-        Intent intent = new Intent(this, SignupActivity.class);
+    private void startFirstActivity() {
+        Intent intent = new Intent(this, FirstAcitivity.class);
         startActivity(intent);
     }
 

@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.sacol.homecontents.R;
 
 public class ModelViewer extends RelativeLayout {
     private ImageView mypage_image;

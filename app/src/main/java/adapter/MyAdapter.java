@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import kr.hs.emirim.homecontents.Model;
-import com.sacol.homecontents.R;
+import  kr.hs.emirim.homecontents.R;
 
 import java.util.ArrayList;
 

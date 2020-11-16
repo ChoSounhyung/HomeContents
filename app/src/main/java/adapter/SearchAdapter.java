@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.sacol.homecontents.R;
+import  kr.hs.emirim.homecontents.R;
 
 import java.util.ArrayList;
 import java.util.List;

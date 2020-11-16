@@ -16,7 +16,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.sacol.homecontents.R;
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
@@ -43,10 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         signupBtn = findViewById(R.id.login_signup);
     }
 
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-    }
+
 
     private void setUp() {
         loginBtn.setOnClickListener(goMainPage);
@@ -90,17 +86,26 @@ public class LoginActivity extends AppCompatActivity {
     View.OnClickListener goSignupPage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Personalinfo.class);
             startActivity(intent);
         }
     };
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        startFirstActivity();
+    }
+
+    private void startFirstActivity(){
+        Intent intent = new Intent(this, FirstAcitivity.class);
+        startActivity(intent);
+    }
 
     private void startMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
     private void showToast(String str){
         Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
     }

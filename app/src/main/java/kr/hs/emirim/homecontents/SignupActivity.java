@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.sacol.homecontents.R;
 
 
 import java.util.HashMap;
@@ -45,11 +44,6 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-    }
-
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
     }
 
     private void init() {
@@ -112,6 +106,7 @@ public class SignupActivity extends AppCompatActivity {
     private void showToast(String str) {
         Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
+
 
     private void startLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);

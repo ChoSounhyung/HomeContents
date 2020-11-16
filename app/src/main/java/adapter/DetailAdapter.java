@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import kr.hs.emirim.homecontents.DetailActivity;
 import kr.hs.emirim.homecontents.Model;
 
-import com.sacol.homecontents.R;
+import  kr.hs.emirim.homecontents.R;
 
 import java.util.ArrayList;
 import java.util.List;
