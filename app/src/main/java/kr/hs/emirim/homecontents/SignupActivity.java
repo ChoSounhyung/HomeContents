@@ -84,13 +84,12 @@ public class SignupActivity extends AppCompatActivity {
                                         mDatabase.child("users").child(mAuth.getUid()).setValue(userDate);
                                         startLoginActivity();
                                     } else {
-                                        showToast("가입된 이메일 입니다. 다시 확인해주세요");
+                                        showToast("회원가입에 실패했습니다.");
                                     }
                                 }
                             });
                 } else {
                     showToast("비밀번호를 확인해주세요.");
-
                 }
             }else{
                 showToast("개인정보를 확인해주세요");

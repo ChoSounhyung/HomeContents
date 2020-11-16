@@ -73,7 +73,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@null"
                 android:ems="10"
-                android:hint="비밀번호를 입력하세요"
+                android:hint="비밀번호를 입력하세요(6자리 이상)"
                 android:inputType="textPassword"
                 android:shadowColor="#FFFFFF" />
 
@@ -102,11 +102,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:text="개인정보동의" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <ScrollView
             android:layout_width="wrap_content"
