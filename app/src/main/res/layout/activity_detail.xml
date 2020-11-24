@@ -56,11 +56,11 @@
 
             <ImageView
                 android:id="@+id/detail_user"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/mypage_cir"
+                android:src="@drawable/mypage_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
