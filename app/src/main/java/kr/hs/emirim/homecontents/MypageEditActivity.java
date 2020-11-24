@@ -102,25 +102,30 @@ public class MypageEditActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-            final StorageReference imgRef = firebaseStorage.getReference("userImg/" + FirebaseAuth.getInstance().getUid() + "Img");
-            UploadTask uploadTask = imgRef.putFile(imguri);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    imgRef.getDownloadUrl().addOnSuccessListener(
-                            new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    mDatabase.child("users").child(uid).child("name").setValue( name.getText().toString());
-                                    mDatabase.child("users").child(uid).child("profileImg").setValue(uri.toString());
+            if(imguri!=null){
+                final StorageReference imgRef = firebaseStorage.getReference("userImg/" + FirebaseAuth.getInstance().getUid() + "Img");
+                UploadTask uploadTask = imgRef.putFile(imguri);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imgRef.getDownloadUrl().addOnSuccessListener(
+                                new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        mDatabase.child("users").child(uid).child("name").setValue( name.getText().toString());
+                                        mDatabase.child("users").child(uid).child("profileImg").setValue(uri.toString());
+                                    }
+
                                 }
 
-                            }
+                        );
+                    }
 
-                    );
-                }
+                });
 
-            });
+            }else{
+                mDatabase.child("users").child(uid).child("name").setValue( name.getText().toString());
+            }
 
             finish();
             Toast.makeText(MypageEditActivity.this, "수정 되었습니다", Toast.LENGTH_SHORT).show();
