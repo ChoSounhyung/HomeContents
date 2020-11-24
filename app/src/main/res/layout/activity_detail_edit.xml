@@ -31,97 +31,110 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_edit_cancel">
 
-        <TextView
-            android:id="@+id/edit_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="20dp"
-            android:text="수정할 제목"
-            android:textColor="@color/dark_grey"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/detail_edit_title"
-            android:layout_width="match_parent"
-            android:layout_height="27dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"
-            android:background="@null"
-            android:gravity="top"
-            android:hint="제목을 입력하세요"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_title" />
-
-        <GridView
-            android:id="@+id/detail_edit_grid"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"
-            android:gravity="center"
-            android:horizontalSpacing="2dp"
-            android:numColumns="3"
-            android:padding="2dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sample1"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/detail_edit_contents"
-            app:layout_constraintTop_toBottomOf="@+id/detail_edit_title" />
-
-        <TextView
-            android:id="@+id/edit_contents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="20dp"
-            android:text="수정할 내용"
-            android:textColor="@color/dark_grey"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_edit_grid" />
-
-        <EditText
-            android:id="@+id/detail_edit_contents"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"
-            android:layout_marginBottom="20dp"
-            android:background="@null"
-            android:gravity="top"
-            android:hint="내용을 입력하세요"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_contents" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollview">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/edit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="20dp"
+                android:text="수정할 제목"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/detail_edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="제목을 입력하세요"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+
+            <GridView
+                android:id="@+id/detail_edit_grid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:gravity="center"
+                android:horizontalSpacing="2dp"
+                android:numColumns="3"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample1"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/detail_edit_contents"
+                app:layout_constraintTop_toBottomOf="@+id/detail_edit_title" />
+
+            <TextView
+                android:id="@+id/edit_contents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="20dp"
+                android:text="수정할 내용"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_edit_grid" />
+
+            <EditText
+                android:id="@+id/detail_edit_contents"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="20dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="내용을 입력하세요"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_contents" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
